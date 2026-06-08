@@ -3793,43 +3793,6 @@
                   "taskType": "Repair"
                 },
                 {
-                  "id": "wag-err-308",
-                  "title": "308 - Pulse Count ของ Rollover ผิดปกติ",
-                  "description": "Rollover Count Abnormal",
-                  "solution": {
-                    "difficulty": "ปานกลาง",
-                    "estimatedTime": "45 นาที",
-                    "warning": "หากรีเซ็ตไม่ได้ หรือเกิดซ้ำ 3 ครั้งติดกัน ให้แจ้งฝ่ายซ่อมบำรุง",
-                    "symptoms": [
-                      "ระหว่าง Rollover เคลื่อนที่ pulse ทุก 400ms ไม่เปลี่ยน 5 ครั้งต่อเนื่อง",
-                      "ระดับ: สูง"
-                    ],
-                    "tools": [
-                      "เซ็นเซอร์สำรอง"
-                    ],
-                    "steps": [
-                      {
-                        "text": "วิเคราะห์สาเหตุ: เซ็นเซอร์นับ pulse ของ Rollover ผิดปกติ",
-                        "image": ""
-                      },
-                      {
-                        "text": "วิเคราะห์สาเหตุ: กลไกไม่ทำงาน",
-                        "image": ""
-                      },
-                      {
-                        "text": "เปลี่ยนเซ็นเซอร์ที่เสียหาย",
-                        "image": ""
-                      },
-                      {
-                        "text": "ตรวจสอบหาสาเหตุที่กลไกไม่ทำงาน",
-                        "image": ""
-                      }
-                    ],
-                    "taskType": "CM"
-                  },
-                  "taskType": "Repair"
-                },
-                {
                   "id": "node-an4g0f",
                   "title": "🟢 308 - Gantry Count Error เซ็นเซอร์รอบจับล้อเคลื่อนที่มีปัญหา",
                   "description": "เซ็นเซอร์รอบจับล้อเคลื่อนที่มีปัญหา",
