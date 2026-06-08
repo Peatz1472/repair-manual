@@ -3796,7 +3796,15 @@
                   "id": "node-an4g0f",
                   "title": "308 - Gantry Count Error เซ็นเซอร์รอบจับล้อเคลื่อนที่มีปัญหา",
                   "description": "เซ็นเซอร์รอบจับล้อเคลื่อนที่มีปัญหา",
-                  "children": []
+                  "taskType": "Repair",
+                  "solution": {
+                    "difficulty": "ง่าย",
+                    "estimatedTime": "30 นาที",
+                    "warning": "",
+                    "symptoms": [],
+                    "tools": [],
+                    "steps": []
+                  }
                 }
               ]
             },
