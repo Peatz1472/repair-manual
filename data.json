@@ -3828,6 +3828,12 @@
                     "taskType": "CM"
                   },
                   "taskType": "Repair"
+                },
+                {
+                  "id": "node-an4g0f",
+                  "title": "🟢 308 - Gantry Count Error เซ็นเซอร์รอบจับล้อเคลื่อนที่มีปัญหา",
+                  "description": "เซ็นเซอร์รอบจับล้อเคลื่อนที่มีปัญหา",
+                  "children": []
                 }
               ]
             },
@@ -4998,7 +5004,7 @@
       "email": "noppharat@scggroup.com"
     },
     "version": "1.0",
-    "lastUpdated": "2026-06-05",
+    "lastUpdated": "2026-06-08",
     "supportTeam": [
       {
         "name": "ช่างบุญมี",
