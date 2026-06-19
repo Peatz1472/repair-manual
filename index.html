@@ -34,6 +34,21 @@
     --line: #dde5ef;
     --line-strong: #c4d0e0;
 
+    /* Adaptive heading/accent ink — navy on light, lifts to readable blue on dark */
+    --accent-ink: var(--brand-disraptor);
+
+    /* Surfaces that adapt by theme (warning / success / highlight tints) */
+    --tint-warn-bg: #fff7e6;
+    --tint-warn-border: #f0c674;
+    --tint-success-bg: #f0f7f3;
+    --tint-mark-bg: #ffe8a8;
+    --tint-mark-ink: var(--ink);
+
+    /* Focus ring */
+    --focus-ring: 0 0 0 3px rgba(42, 95, 150, 0.45);
+
+    color-scheme: light;
+
     /* Semantic */
     --accent-qw: #c5e63a;
     --accent-wag: #ffd102;
@@ -62,6 +77,49 @@
     --t-fast: 0.15s;
     --t-base: 0.25s;
     --t-slow: 0.4s;
+
+    /* Body ambient glow (theme-aware) */
+    --body-glow-1: rgba(42, 95, 150, 0.08);
+    --body-glow-2: rgba(197, 230, 58, 0.06);
+    --body-glow-3: rgba(255, 209, 2, 0.05);
+  }
+
+  /* ========= DARK THEME ========= */
+  :root[data-theme="dark"] {
+    --bg: #0c1726;
+    --bg-card: #15243b;
+    --bg-soft: #1b2c46;
+    --bg-elev: #1a2a44;
+    --ink: #e9eef7;
+    --ink-soft: #aab9d0;
+    --ink-muted: #7286a3;
+    --line: #2a3a54;
+    --line-strong: #3b4f6e;
+
+    --accent-ink: #7db1ec;
+
+    --brand-disraptor-pale: #16263f;
+    --brand-disraptor-glow: rgba(85, 150, 220, 0.30);
+
+    --tint-warn-bg: #2e2410;
+    --tint-warn-border: #6b5320;
+    --tint-success-bg: #122a20;
+    --tint-mark-bg: #6b5a1f;
+    --tint-mark-ink: #fdf3d3;
+
+    --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 6px 16px rgba(0, 0, 0, 0.45), 0 2px 4px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.55), 0 4px 12px rgba(0, 0, 0, 0.4);
+    --shadow-xl: 0 24px 60px rgba(0, 0, 0, 0.6);
+
+    --focus-ring: 0 0 0 3px rgba(125, 177, 236, 0.55);
+
+    --body-glow-1: rgba(42, 95, 150, 0.22);
+    --body-glow-2: rgba(197, 230, 58, 0.05);
+    --body-glow-3: rgba(255, 209, 2, 0.05);
+
+    color-scheme: dark;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -75,15 +133,58 @@
     min-height: 100vh;
   }
 
+  html, body { transition: background-color var(--t-base) var(--ease-out), color var(--t-base) var(--ease-out); }
+
   body {
     background-image:
-      radial-gradient(ellipse 80% 50% at 15% 0%, rgba(42, 95, 150, 0.08) 0%, transparent 55%),
-      radial-gradient(ellipse 70% 50% at 90% 30%, rgba(197, 230, 58, 0.06) 0%, transparent 55%),
-      radial-gradient(ellipse 60% 50% at 80% 90%, rgba(255, 209, 2, 0.05) 0%, transparent 55%);
+      radial-gradient(ellipse 80% 50% at 15% 0%, var(--body-glow-1) 0%, transparent 55%),
+      radial-gradient(ellipse 70% 50% at 90% 30%, var(--body-glow-2) 0%, transparent 55%),
+      radial-gradient(ellipse 60% 50% at 80% 90%, var(--body-glow-3) 0%, transparent 55%);
     background-attachment: fixed;
   }
 
   .mono { font-family: 'JetBrains Mono', monospace; }
+
+  /* ========= ICONS ========= */
+  .icon {
+    display: inline-block;
+    vertical-align: -0.18em;
+    flex: 0 0 auto;
+    pointer-events: none;
+  }
+  button .icon, a .icon, label .icon { pointer-events: none; }
+  .icon-star.is-filled, .top-badge .icon, .bookmark-btn.active .icon { fill: currentColor; }
+  .spin { display: inline-flex; animation: spin 0.9s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ========= THEME TOGGLE ========= */
+  .theme-toggle {
+    width: 38px; height: 38px;
+    display: inline-grid; place-items: center;
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: background var(--t-fast) var(--ease-out), border-color var(--t-fast) var(--ease-out), transform var(--t-fast) var(--ease-out);
+  }
+  .theme-toggle:hover { background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.4); }
+  .theme-toggle:active { transform: scale(0.94); }
+  .theme-toggle .icon-sun { display: none; }
+  .theme-toggle .icon-moon { display: block; }
+  :root[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+  :root[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+
+  /* Visible keyboard focus everywhere (a11y) */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+    border-radius: var(--radius-sm);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+  }
 
   /* ========= TOPBAR ========= */
   .topbar {
@@ -304,7 +405,7 @@
     font-size: clamp(28px, 4.5vw, 46px);
     font-weight: 700; line-height: 1.15;
     letter-spacing: -0.025em; margin-bottom: 16px;
-    color: var(--brand-disraptor);
+    color: var(--accent-ink);
   }
   .hero h1 .accent {
     background: linear-gradient(120deg, var(--brand-qw-primary-deep) 0%, var(--brand-wag-secondary) 100%);
@@ -343,7 +444,7 @@
     font-family: 'JetBrains Mono', monospace;
     font-size: 15px;
     font-weight: 700;
-    color: var(--brand-disraptor);
+    color: var(--accent-ink);
   }
   .hero-stat + .hero-stat {
     border-left: 1px solid var(--line);
@@ -523,7 +624,7 @@
     font-family: 'JetBrains Mono', monospace;
     font-size: 24px;
     font-weight: 700;
-    color: var(--brand-disraptor);
+    color: var(--accent-ink);
     line-height: 1;
   }
   .brand-card-stats .lbl {
@@ -577,7 +678,7 @@
     height: 22px;
     padding: 0 7px;
     background: var(--brand-disraptor-pale);
-    color: var(--brand-disraptor);
+    color: var(--accent-ink);
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
     font-weight: 700;
@@ -676,7 +777,7 @@
   }
   .recently-viewed-item:hover .rv-arrow {
     transform: translateX(4px);
-    color: var(--brand-disraptor);
+    color: var(--accent-ink);
   }
 
   /* ========= PAGE FOOTER (CREDIT) ========= */
@@ -787,7 +888,7 @@
   }
   .support-team-item:hover {
     background: var(--brand-disraptor-pale);
-    border-color: var(--brand-disraptor);
+    border-color: var(--accent-ink);
     transform: translateX(3px);
   }
   .support-team-icon {
@@ -808,7 +909,7 @@
     font-family: 'JetBrains Mono', monospace;
     font-size: 13px;
     font-weight: 600;
-    color: var(--brand-disraptor);
+    color: var(--accent-ink);
     letter-spacing: 0.04em;
   }
   .credit-company {
@@ -844,7 +945,7 @@
   .version-tag {
     font-family: 'JetBrains Mono', monospace;
     font-weight: 700;
-    color: var(--brand-disraptor);
+    color: var(--accent-ink);
     background: var(--brand-disraptor-pale);
     padding: 2px 8px;
     border-radius: 100px;
@@ -1418,7 +1519,7 @@
     border-radius: var(--radius-sm);
   }
   .breadcrumb a:hover {
-    color: var(--brand-disraptor);
+    color: var(--accent-ink);
     background: var(--brand-disraptor-pale);
   }
   .breadcrumb .sep {
@@ -1484,7 +1585,7 @@
     color: var(--ink-muted); font-size: 16px;
     transition: transform var(--t-fast) var(--ease-out);
   }
-  .node-card:hover .arrow { transform: translateX(4px); color: var(--brand-disraptor); }
+  .node-card:hover .arrow { transform: translateX(4px); color: var(--accent-ink); }
   .node-card-title {
     font-size: 15px; font-weight: 700;
     line-height: 1.35;
@@ -1640,12 +1741,12 @@
     text-align: center;
   }
   .task-type-option:hover {
-    border-color: var(--brand-disraptor);
+    border-color: var(--accent-ink);
     transform: translateY(-1px);
   }
   .task-type-option.selected {
     background: white;
-    border-color: var(--brand-disraptor);
+    border-color: var(--accent-ink);
     box-shadow: 0 4px 12px rgba(30, 58, 95, 0.15);
   }
   .task-type-option input[type="radio"] {
@@ -1763,7 +1864,7 @@
   }
   .btn-publish {
     background: white !important;
-    color: var(--brand-disraptor) !important;
+    color: var(--accent-ink) !important;
     border: 2px solid white !important;
     font-weight: 700 !important;
     font-size: 15px !important;
@@ -2128,8 +2229,8 @@
   }
 
   .warning-box {
-    background: #fff7e6;
-    border: 1px solid #f0c674;
+    background: var(--tint-warn-bg);
+    border: 1px solid var(--tint-warn-border);
     border-left: 3px solid var(--accent-warn);
     padding: 14px 16px; border-radius: var(--radius);
     margin-bottom: 16px; font-size: 14px;
@@ -2572,7 +2673,7 @@
   }
   .upload-zone.drag {
     border-color: var(--accent-success);
-    background: #f0f7f3;
+    background: var(--tint-success-bg);
   }
   .upload-zone-icon {
     font-size: 24px; margin-bottom: 4px;
@@ -2694,7 +2795,7 @@
     line-height: 1.4;
   }
   .skill-option-check {
-    color: var(--brand-disraptor);
+    color: var(--accent-ink);
     font-size: 16px;
     flex-shrink: 0;
     align-self: center;
@@ -2748,14 +2849,14 @@
     transition: all var(--t-fast) var(--ease-out);
   }
   .toolbar-chip:hover {
-    color: var(--brand-disraptor);
+    color: var(--accent-ink);
     border-color: var(--brand-disraptor-light);
     background: var(--brand-disraptor-pale);
   }
   .toolbar-chip.active {
     background: var(--brand-disraptor);
     color: white;
-    border-color: var(--brand-disraptor);
+    border-color: var(--accent-ink);
   }
   .toolbar-chip.diff-easy.active { background: var(--accent-success); border-color: var(--accent-success); }
   .toolbar-chip.diff-mid.active { background: var(--accent-warn); border-color: var(--accent-warn); }
@@ -2812,7 +2913,9 @@
     font-size: 14px; z-index: 300;
     box-shadow: var(--shadow-lg);
     animation: toastIn 0.2s;
+    display: flex; align-items: center; gap: 8px;
   }
+  .toast-icon { display: inline-flex; color: var(--accent-qw); }
   @keyframes toastIn {
     from { opacity: 0; transform: translate(-50%, 20px); }
     to { opacity: 1; transform: translate(-50%, 0); }
@@ -2881,7 +2984,7 @@
     color: var(--ink-soft);
   }
   mark {
-    background: #ffe8a8; color: var(--ink);
+    background: var(--tint-mark-bg); color: var(--tint-mark-ink);
     padding: 0 2px; border-radius: 2px;
   }
 
@@ -2925,7 +3028,7 @@
     .modal-header, .modal-footer { padding: 14px 16px; }
     .modal-body { padding: 18px; }
     .logo-text .en { display: none; }
-    .topbar-actions .btn span { display: none; }
+    .topbar-actions .btn span:not(#adminIcon) { display: none; }
     .hotspot { width: 28px; height: 28px; }
     .skill-picker-btn { padding: 7px 10px; }
     .skill-picker-btn #skillPickerLabel { display: none; }
@@ -2952,7 +3055,7 @@
   }
   .btn-back:hover {
     background: var(--brand-disraptor); color: white;
-    border-color: var(--brand-disraptor);
+    border-color: var(--accent-ink);
     transform: translateX(-3px);
     box-shadow: var(--shadow-sm);
   }
@@ -3022,12 +3125,12 @@
   }
   .filter-pill:hover {
     border-color: var(--brand-disraptor-light);
-    color: var(--brand-disraptor);
+    color: var(--accent-ink);
     background: var(--brand-disraptor-pale);
   }
   .filter-pill.active {
     background: linear-gradient(135deg, var(--brand-disraptor) 0%, var(--brand-disraptor-light) 100%); color: white;
-    border-color: var(--brand-disraptor); font-weight: 600;
+    border-color: var(--accent-ink); font-weight: 600;
     box-shadow: 0 2px 8px var(--brand-disraptor-glow);
   }
   .filter-dot {
@@ -3050,8 +3153,8 @@
 
   /* ========= HOTSPOT EDITOR ========= */
   .hotspot-editor-help {
-    background: #fff7e6;
-    border: 1px solid #f0c674;
+    background: var(--tint-warn-bg);
+    border: 1px solid var(--tint-warn-border);
     border-radius: var(--radius);
     padding: 12px;
     margin-bottom: 16px;
@@ -3156,7 +3259,64 @@
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.9em;
   }
+
+  /* ===== Phase 2: icon alignment, difficulty dots, CTA arrow ===== */
+  .brand-tab { display: inline-flex; align-items: center; gap: 7px; }
+  .badge { display: inline-flex; align-items: center; gap: 5px; }
+  .task-badge, .rv-task { display: inline-flex; align-items: center; gap: 4px; }
+  .top-item-meta span { display: inline-flex; align-items: center; gap: 5px; }
+  .spare-part-label { display: flex; align-items: center; gap: 6px; }
+  .credit-phone, .credit-email { display: inline-flex; align-items: center; gap: 6px; }
+  .support-team-icon { display: inline-flex; }
+  .spare-part-icon { display: grid; place-items: center; }
+  .rv-arrow, .top-item-arrow, .node-card .arrow { display: grid; place-items: center; }
+  .cta-arrow { display: inline-flex; vertical-align: middle; transition: transform var(--t-base) var(--ease-out); }
+  .brand-card:hover .cta-arrow { transform: translateX(4px); }
+  .diff-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; flex: 0 0 auto; background: var(--ink-muted); }
+  .toolbar-chip.diff-easy .diff-dot { background: var(--accent-success); }
+  .toolbar-chip.diff-mid  .diff-dot { background: var(--accent-warn); }
+  .toolbar-chip.diff-hard .diff-dot { background: var(--accent-danger); }
+  .is-filled .icon { fill: currentColor; }
+  .modal-header h3 { display: flex; align-items: center; gap: 8px; }
+  .modal-title-icon { display: inline-flex; color: var(--accent-ink); }
+  .mode-toggle-btn { display: inline-flex; align-items: center; gap: 6px; }
+  .stepper-image-zoom, .hotspot-list-link { display: inline-flex; align-items: center; gap: 5px; }
+  .warning-box strong { display: inline-flex; align-items: center; gap: 6px; }
+  .chip { align-items: center; }
+  .chip:has(.icon) { display: inline-flex; gap: 5px; }
+
+  /* ===== Phase 5: touch targets (≥44px on touch devices) & small-screen layout ===== */
+  @media (pointer: coarse) {
+    .btn, .toolbar-chip, .brand-tab, .mode-toggle-btn, .admin-tab, .tab-inner,
+    .skill-picker-btn { min-height: 44px; }
+    .theme-toggle, .btn-icon { width: 44px; height: 44px; }
+    .btn-sm { min-height: 38px; }
+    .bookmark-btn { width: 42px; height: 42px; }
+    .search-clear { width: 30px; height: 30px; }
+    .stepper-dot { min-width: 38px; min-height: 38px; }
+    .skill-option, .support-action { min-height: 54px; }
+    .modal .btn-icon { width: 40px; height: 40px; }
+  }
+  @media (max-width: 480px) {
+    .brand-grid { grid-template-columns: 1fr; gap: 16px; }
+    .brand-tabs { overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; padding-bottom: 4px; scrollbar-width: none; }
+    .brand-tabs::-webkit-scrollbar { display: none; }
+    .brand-tab { white-space: nowrap; }
+    .stepper-actions { gap: 8px; }
+    .solution-meta { flex-wrap: wrap; }
+    .top-item-card { flex-wrap: wrap; }
+  }
 </style>
+<script>
+  /* Apply saved/system theme before first paint (no flash) */
+  (function () {
+    try {
+      var t = localStorage.getItem('repairManualTheme');
+      if (!t) t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  })();
+</script>
 </head>
 <body>
 
@@ -3178,46 +3338,48 @@
     </div>
     <nav class="brand-switcher" id="brandSwitcher"></nav>
     <div class="topbar-actions">
+      <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="สลับโหมดสว่าง / มืด" aria-label="สลับโหมดสว่าง / มืด">
+        <svg class="icon icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        <svg class="icon icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+      </button>
       <div class="skill-picker" id="skillPicker">
         <button class="skill-picker-btn" onclick="toggleSkillMenu(event)" title="เลือกระดับผู้ใช้">
-          <span class="skill-picker-icon" id="skillPickerIcon">🔧</span>
+          <span class="skill-picker-icon" id="skillPickerIcon"></span>
           <span id="skillPickerLabel">ช่าง</span>
-          <span class="skill-picker-caret">▼</span>
+          <span class="skill-picker-caret" data-icon="chevron-down" data-icon-size="13"></span>
         </button>
         <div class="skill-picker-menu" id="skillPickerMenu">
           <div class="skill-picker-header">เลือกระดับผู้ใช้</div>
           <button class="skill-option" data-skill="beginner" onclick="setSkillLevel('beginner')">
-            <div class="skill-option-icon">🌱</div>
+            <div class="skill-option-icon" data-icon="sprout"></div>
             <div class="skill-option-body">
               <div class="skill-option-name">เริ่มต้น / พนักงาน</div>
               <div class="skill-option-desc">ตัวอักษรใหญ่ คำอธิบายเต็ม เน้น Step-by-step</div>
             </div>
-            <div class="skill-option-check">✓</div>
+            <div class="skill-option-check" data-icon="check"></div>
           </button>
           <button class="skill-option" data-skill="technician" onclick="setSkillLevel('technician')">
-            <div class="skill-option-icon">🔧</div>
+            <div class="skill-option-icon" data-icon="wrench"></div>
             <div class="skill-option-body">
               <div class="skill-option-name">ช่าง (ค่าเริ่มต้น)</div>
               <div class="skill-option-desc">มุมมองสมดุล แสดงข้อมูลครบ</div>
             </div>
-            <div class="skill-option-check">✓</div>
+            <div class="skill-option-check" data-icon="check"></div>
           </button>
           <button class="skill-option" data-skill="expert" onclick="setSkillLevel('expert')">
-            <div class="skill-option-icon">⚡</div>
+            <div class="skill-option-icon" data-icon="zap"></div>
             <div class="skill-option-body">
               <div class="skill-option-name">ผู้เชี่ยวชาญ</div>
               <div class="skill-option-desc">มุมมองกระชับ การ์ดถี่ขึ้น เน้นประสิทธิภาพ</div>
             </div>
-            <div class="skill-option-check">✓</div>
+            <div class="skill-option-check" data-icon="check"></div>
           </button>
         </div>
       </div>
-      <button id="publishBtn" class="btn btn-publish-clean" onclick="publishToGithub()" title="Publish ข้อมูลขึ้น GitHub" style="display: none;">
-        ✅ ตรงกับ GitHub แล้ว
-      </button>
-      <button id="publishSettingsBtn" class="btn btn-icon" onclick="showGithubSetup()" title="ตั้งค่า GitHub Token" style="display: none;">⚙️</button>
+      <button id="publishBtn" class="btn btn-publish-clean" onclick="publishToGithub()" title="Publish ข้อมูลขึ้น GitHub" style="display: none;"></button>
+      <button id="publishSettingsBtn" class="btn btn-icon" onclick="showGithubSetup()" title="ตั้งค่า GitHub Token" style="display: none;" data-icon="settings"></button>
       <button class="btn" onclick="toggleAdmin()" id="adminToggle" title="เข้าโหมดแก้ไข (มีรหัสผ่าน)">
-        <span id="adminIcon">🔒</span><span>Admin</span>
+        <span id="adminIcon"></span><span>Admin</span>
       </button>
     </div>
   </div>
@@ -3226,11 +3388,11 @@
 <!-- Unpublished Changes Banner (เห็นเฉพาะ admin ที่ยังไม่ได้ publish) -->
 <div id="unpublishedBanner" class="unpublished-banner no-print" style="display: none;">
   <div class="unpublished-banner-inner">
-    <span class="unpublished-icon">⚠️</span>
+    <span class="unpublished-icon" data-icon="alert-triangle"></span>
     <span class="unpublished-text">
       <strong>คุณมีการเปลี่ยนแปลงที่ยังไม่ได้เผยแพร่</strong> — ทีมจะยังไม่เห็นการอัพเดต
     </span>
-    <button class="btn btn-publish-quick" onclick="publishToGithub()">🚀 Publish เลย</button>
+    <button class="btn btn-publish-quick" onclick="publishToGithub()">Publish เลย</button>
     <button class="unpublished-dismiss" onclick="dismissUnpublishedBanner()" title="ซ่อน (จะแสดงอีกครั้งหลังแก้ไขครั้งต่อไป)">×</button>
   </div>
 </div>
@@ -3239,7 +3401,7 @@
 
 <!-- Floating Support Button -->
 <button class="fab-support no-print" id="fabSupport" onclick="openSupport()" title="ติดต่อช่างผู้จัดทำคู่มือ" aria-label="ติดต่อ Support">
-  <span class="fab-icon">💬</span>
+  <span class="fab-icon" data-icon="message-circle" data-icon-size="22"></span>
   <span class="fab-label">ติดต่อช่าง</span>
 </button>
 
@@ -3248,6 +3410,73 @@
 <div id="lightboxRoot"></div>
 
 <script>
+/* ============== SVG ICON SYSTEM (Lucide-style, stroke, currentColor) ============== */
+const ICONS = {
+  search: '<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>',
+  x: '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',
+  check: '<path d="M20 6 9 17l-5-5"/>',
+  'check-circle': '<path d="M21.8 10A10 10 0 1 1 17 3.34"/><path d="m9 11 3 3L22 4"/>',
+  'chevron-down': '<path d="m6 9 6 6 6-6"/>',
+  'chevron-right': '<path d="m9 18 6-6-6-6"/>',
+  'arrow-right': '<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>',
+  'arrow-left': '<path d="m12 19-7-7 7-7"/><path d="M19 12H5"/>',
+  'arrow-up': '<path d="m5 12 7-7 7 7"/><path d="M12 19V5"/>',
+  'arrow-down': '<path d="M12 5v14"/><path d="m19 12-7 7-7-7"/>',
+  plus: '<path d="M5 12h14"/><path d="M12 5v14"/>',
+  sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>',
+  moon: '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>',
+  wrench: '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76Z"/>',
+  sprout: '<path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/>',
+  zap: '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>',
+  lock: '<rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
+  unlock: '<rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/>',
+  settings: '<path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/>',
+  'message-circle': '<path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>',
+  'alert-triangle': '<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/>',
+  'cloud-upload': '<path d="M12 13v8"/><path d="M4 14.9A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.24"/><path d="m8 17 4-4 4 4"/>',
+  rocket: '<path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>',
+  star: '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>',
+  flame: '<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>',
+  'clipboard-list': '<rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/>',
+  map: '<path d="M14.1 5.55a2 2 0 0 0 1.8 0l3.66-1.83A1 1 0 0 1 21 4.62v12.76a1 1 0 0 1-.55.9l-4.55 2.27a2 2 0 0 1-1.8 0l-4.2-2.1a2 2 0 0 0-1.8 0l-3.66 1.83A1 1 0 0 1 3 19.38V6.62a1 1 0 0 1 .55-.9l4.55-2.27a2 2 0 0 1 1.8 0z"/><path d="M15 5.76v15"/><path d="M9 3.24v15"/>',
+  package: '<path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/>',
+  tag: '<path d="M12.59 2.59A2 2 0 0 0 11.17 2H4a2 2 0 0 0-2 2v7.17a2 2 0 0 0 .59 1.41l8.7 8.71a2.43 2.43 0 0 0 3.42 0l6.58-6.59a2.43 2.43 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r=".75" fill="currentColor"/>',
+  layers: '<path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.84z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/>',
+  clock: '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+  'zoom-in': '<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><line x1="11" x2="11" y1="8" y2="14"/><line x1="8" x2="14" y1="11" y2="11"/>',
+  list: '<path d="M8 6h13"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M3 6h.01"/><path d="M3 12h.01"/><path d="M3 18h.01"/>',
+  footprints: '<path d="M4 16v-2.38C4 11.5 2.97 10.5 3 8c.03-2.72 1.49-6 4.5-6C9.37 2 10 3.8 10 5.5c0 3.11-2 5.66-2 8.68V16a2 2 0 1 1-4 0Z"/><path d="M20 20v-2.38c0-2.12 1.03-3.12 1-5.62-.03-2.72-1.49-6-4.5-6C14.63 6 14 7.8 14 9.5c0 3.11 2 5.66 2 8.68V20a2 2 0 1 0 4 0Z"/><path d="M16 17h4"/><path d="M4 13h4"/>',
+  gauge: '<path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/>',
+  'map-pin': '<path d="M20 10c0 4.42-7 12-8 12s-8-7.58-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>',
+  info: '<circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>',
+  lightbulb: '<path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/>',
+  trash: '<path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/>',
+  pencil: '<path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/>',
+  phone: '<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>',
+  mail: '<rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>',
+  printer: '<path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/>',
+  eye: '<path d="M2.06 12.35a1 1 0 0 1 0-.7 10.75 10.75 0 0 1 19.88 0 1 1 0 0 1 0 .7 10.75 10.75 0 0 1-19.88 0"/><circle cx="12" cy="12" r="3"/>',
+  save: '<path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/>',
+  'book-open': '<path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/>',
+  'refresh-cw': '<path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/>',
+  download: '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/>',
+  upload: '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/>',
+  image: '<rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.09-3.09a2 2 0 0 0-2.82 0L6 21"/>',
+  camera: '<path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/>',
+  link: '<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>',
+  folder: '<path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/>',
+  hand: '<path d="M18 11V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/>',
+  'life-buoy': '<circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/><circle cx="12" cy="12" r="4"/>',
+  'file-text': '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/>',
+  'party': '<path d="M5.8 11.3 2 22l10.7-3.79"/><path d="M4 3h.01"/><path d="M22 8h.01"/><path d="M15 2h.01"/><path d="M22 20h.01"/><path d="m22 2-2.24.75a2.9 2.9 0 0 0-1.96 3.12c.19 1.57-.4 3.5-2.31 4.78"/><path d="m13.41 10.59 5.66 5.66"/>',
+};
+function icon(name, size) {
+  const p = ICONS[name];
+  if (!p) return '';
+  const s = size || 18;
+  return `<svg class="icon icon-${name}" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${p}</svg>`;
+}
+
 /* ============== DATA ============== */
 const STORAGE_KEY = 'repairManualData_v8';
 const DATA_URL = 'data.json';
@@ -3268,9 +3497,9 @@ const SORT_KEY = 'repairManualSort';
 const DIFFICULTY_KEY = 'repairManualDifficultyFilter';
 
 const SKILL_LEVELS = {
-  beginner:   { icon: '🌱', label: 'เริ่มต้น',     bodyClass: 'skill-beginner',   defaultDensity: 'roomy',  defaultSolutionView: 'stepper' },
-  technician: { icon: '🔧', label: 'ช่าง',         bodyClass: 'skill-technician', defaultDensity: 'comfortable', defaultSolutionView: undefined },
-  expert:     { icon: '⚡', label: 'ผู้เชี่ยวชาญ', bodyClass: 'skill-expert',     defaultDensity: 'compact', defaultSolutionView: 'full' }
+  beginner:   { iconName: 'sprout', label: 'เริ่มต้น',     bodyClass: 'skill-beginner',   defaultDensity: 'roomy',  defaultSolutionView: 'stepper' },
+  technician: { iconName: 'wrench', label: 'ช่าง',         bodyClass: 'skill-technician', defaultDensity: 'comfortable', defaultSolutionView: undefined },
+  expert:     { iconName: 'zap',    label: 'ผู้เชี่ยวชาญ', bodyClass: 'skill-expert',     defaultDensity: 'compact', defaultSolutionView: 'full' }
 };
 
 function getSkillLevel() {
@@ -3286,7 +3515,7 @@ function setSkillLevel(level) {
   if (!userOverride) {
     localStorage.setItem(DENSITY_KEY, SKILL_LEVELS[level].defaultDensity);
   }
-  toast(`เปลี่ยนโหมดเป็น ${SKILL_LEVELS[level].icon} ${SKILL_LEVELS[level].label}`);
+  toast(`เปลี่ยนโหมดเป็น ${SKILL_LEVELS[level].label}`);
   render();
 }
 function applySkillLevel() {
@@ -3296,7 +3525,7 @@ function applySkillLevel() {
   document.body.classList.add(cfg.bodyClass);
   const iconEl = document.getElementById('skillPickerIcon');
   const labelEl = document.getElementById('skillPickerLabel');
-  if (iconEl) iconEl.textContent = cfg.icon;
+  if (iconEl) iconEl.innerHTML = icon(cfg.iconName, 18);
   if (labelEl) labelEl.textContent = cfg.label;
   document.querySelectorAll('.skill-option').forEach(el => {
     el.classList.toggle('active', el.dataset.skill === level);
@@ -3432,7 +3661,7 @@ async function publishToGithub() {
 
   const btn = document.getElementById('publishBtn');
   const original = btn ? btn.innerHTML : '';
-  if (btn) { btn.disabled = true; btn.innerHTML = '⏳ กำลัง Publish...'; }
+  if (btn) { btn.disabled = true; btn.innerHTML = '<span class="spin">' + icon('refresh-cw', 16) + '</span><span>กำลัง Publish...</span>'; }
 
   try {
     const sha = await ghGetFileSha();
@@ -3462,7 +3691,7 @@ async function publishToGithub() {
     sessionStorage.removeItem('publishBannerDismissed');
     DEFAULT_DATA = JSON.parse(JSON.stringify(appData));
     DATA_LOADED = true;
-    toast('🚀 Publish สำเร็จ — รอ 30 วิ - 2 นาทีเว็บจะอัพเดต');
+    toast('Publish สำเร็จ — รอ 30 วิ - 2 นาทีเว็บจะอัพเดต', 'cloud-upload');
     updatePublishButton();
     updateUnpublishedBanner();
   } catch (e) {
@@ -3474,7 +3703,7 @@ async function publishToGithub() {
     } else if (msg.includes('404')) {
       msg = 'ไม่พบไฟล์ data.json บน GitHub — เช็กชื่อ repo/branch';
     }
-    alert('❌ Publish ไม่สำเร็จ:\n\n' + msg);
+    alert('Publish ไม่สำเร็จ:\n\n' + msg);
   } finally {
     if (btn) { btn.disabled = false; updatePublishButton(); }
   }
@@ -3486,13 +3715,13 @@ function updatePublishButton() {
   const dirty = localStorage.getItem(DATA_DIRTY_KEY) === '1';
   const hasToken = !!getGhToken();
   if (!hasToken) {
-    btn.innerHTML = '⚙️ ตั้งค่า GitHub Token';
+    btn.innerHTML = icon('settings', 16) + '<span>ตั้งค่า GitHub Token</span>';
     btn.className = 'btn btn-publish-setup';
   } else if (dirty) {
-    btn.innerHTML = '🚀 Publish ขึ้น GitHub';
+    btn.innerHTML = icon('cloud-upload', 16) + '<span>Publish ขึ้น GitHub</span>';
     btn.className = 'btn btn-publish-ready';
   } else {
-    btn.innerHTML = '✅ ตรงกับ GitHub แล้ว';
+    btn.innerHTML = icon('check-circle', 16) + '<span>ตรงกับ GitHub แล้ว</span>';
     btn.className = 'btn btn-publish-clean';
   }
 }
@@ -3500,7 +3729,7 @@ function updatePublishButton() {
 function showGithubSetup() {
   const cur = getGhToken();
   showModal({
-    title: '⚙️ ตั้งค่า GitHub Personal Access Token',
+    title: 'ตั้งค่า GitHub Personal Access Token', titleIcon: 'settings',
     body: `
       <div style="font-size: 13px; color: var(--ink-soft); line-height: 1.6; margin-bottom: 14px;">
         Token นี้ใช้สำหรับ <strong>Publish</strong> ข้อมูลขึ้น GitHub โดยตรงจากหน้า Admin
@@ -3517,11 +3746,11 @@ function showGithubSetup() {
       <label style="font-size: 12px; font-weight: 600; color: var(--ink); display: block; margin-bottom: 6px;">Personal Access Token</label>
       <input id="ghTokenInput" type="password" placeholder="ghp_..." value="${escapeHtml(cur)}" style="width: 100%; padding: 10px 12px; border: 1px solid var(--line); border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 13px;">
       <div style="display: flex; gap: 6px; margin-top: 8px; align-items: center;">
-        <button onclick="document.getElementById('ghTokenInput').type = document.getElementById('ghTokenInput').type === 'password' ? 'text' : 'password'" class="btn btn-sm">👁 แสดง/ซ่อน</button>
-        ${cur ? '<button onclick="if(confirm(\'ลบ Token ที่บันทึกไว้?\')){setGhToken(\'\');closeModal();updatePublishButton();toast(\'ลบ Token แล้ว\');}" class="btn btn-sm" style="color: var(--accent-danger); border-color: var(--accent-danger);">🗑 ลบ Token</button>' : ''}
+        <button onclick="document.getElementById('ghTokenInput').type = document.getElementById('ghTokenInput').type === 'password' ? 'text' : 'password'" class="btn btn-sm">${icon('eye', 14)} แสดง/ซ่อน</button>
+        ${cur ? '<button onclick="if(confirm(\'ลบ Token ที่บันทึกไว้?\')){setGhToken(\'\');closeModal();updatePublishButton();toast(\'ลบ Token แล้ว\');}" class="btn btn-sm" style="color: var(--accent-danger); border-color: var(--accent-danger);">' + icon('trash', 14) + ' ลบ Token</button>' : ''}
       </div>
     `,
-    saveLabel: '💾 บันทึก Token',
+    saveLabel: 'บันทึก Token',
     onSave: () => {
       const v = (document.getElementById('ghTokenInput').value || '').trim();
       if (!v) { toast('กรุณาใส่ Token'); return false; }
@@ -3530,7 +3759,7 @@ function showGithubSetup() {
       }
       setGhToken(v);
       updatePublishButton();
-      toast('✅ บันทึก Token แล้ว — กด Publish ได้เลย');
+      toast('บันทึก Token แล้ว — กด Publish ได้เลย', 'check-circle');
       return true;
     }
   });
@@ -3578,13 +3807,13 @@ function openSupport() {
           return `
             <a href="tel:${memberPhone}" class="support-action team-member" style="text-decoration: none; display: block; background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px;">
               <div style="display: flex; align-items: center; gap: 12px;">
-                <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--accent-success); color: white; display: grid; place-items: center; font-size: 16px; flex-shrink: 0;">📞</div>
+                <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--accent-success); color: white; display: grid; place-items: center; flex-shrink: 0;">${icon('phone', 18)}</div>
                 <div style="flex: 1; min-width: 0;">
                   <div style="font-weight: 600; color: var(--ink); margin-bottom: 2px;">${escapeHtml(member.name)}</div>
                   <div style="font-size: 11px; color: var(--ink-muted); margin-bottom: 2px;">${escapeHtml(member.role || '')}</div>
                   <div style="font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 14px; color: var(--ink); letter-spacing: 0.04em;">${escapeHtml(member.phone)}</div>
                 </div>
-                <span style="font-size: 12px; color: var(--ink-muted);">→</span>
+                <span style="color: var(--ink-muted); display:inline-flex;">${icon('chevron-right', 16)}</span>
               </div>
             </a>
           `;
@@ -3594,11 +3823,12 @@ function openSupport() {
   ` : '';
 
   showModal({
-    title: '💬 ติดต่อ Support',
+    title: 'ติดต่อ Support',
+    titleIcon: 'message-circle',
     body: `
       <div style="text-align: center; padding: 8px 0 16px;">
-        <div style="width: 80px; height: 80px; margin: 0 auto 12px; border-radius: 50%; background: linear-gradient(135deg, var(--brand-disraptor) 0%, var(--brand-disraptor-light) 100%); display: grid; place-items: center; font-size: 36px; box-shadow: var(--shadow-md);">
-          👨‍🔧
+        <div style="width: 80px; height: 80px; margin: 0 auto 12px; border-radius: 50%; background: linear-gradient(135deg, var(--brand-disraptor) 0%, var(--brand-disraptor-light) 100%); color: white; display: grid; place-items: center; box-shadow: var(--shadow-md);">
+          ${icon('wrench', 34)}
         </div>
         <div style="font-size: 12px; font-weight: 600; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px;">ผู้จัดทำคู่มือ</div>
         <div style="font-size: 20px; font-weight: 700; color: var(--ink); margin-bottom: 4px;">${escapeHtml(author.name || '—')}</div>
@@ -3609,44 +3839,44 @@ function openSupport() {
       <div style="background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 14px; display: grid; gap: 8px;">
         <a href="tel:${phone}" class="support-action" style="text-decoration: none;">
           <div style="display: flex; align-items: center; gap: 12px; padding: 10px;">
-            <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--accent-success); color: white; display: grid; place-items: center; font-size: 20px; flex-shrink: 0;">📞</div>
+            <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--accent-success); color: white; display: grid; place-items: center; flex-shrink: 0;">${icon('phone', 20)}</div>
             <div style="flex: 1; min-width: 0;">
               <div style="font-size: 12px; color: var(--ink-soft); margin-bottom: 2px;">โทร</div>
               <div style="font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 18px; color: var(--ink); letter-spacing: 0.04em;">${escapeHtml(phoneDisplay)}</div>
             </div>
-            <span style="font-size: 12px; color: var(--ink-muted);">→</span>
+            <span style="color: var(--ink-muted); display:inline-flex;">${icon('chevron-right', 16)}</span>
           </div>
         </a>
 
         ${email ? `
         <a href="mailto:${email}" class="support-action" style="text-decoration: none;">
           <div style="display: flex; align-items: center; gap: 12px; padding: 10px;">
-            <div style="width: 44px; height: 44px; border-radius: 50%; background: #2563eb; color: white; display: grid; place-items: center; font-size: 18px; flex-shrink: 0;">✉</div>
+            <div style="width: 44px; height: 44px; border-radius: 50%; background: #2563eb; color: white; display: grid; place-items: center; flex-shrink: 0;">${icon('mail', 18)}</div>
             <div style="flex: 1; min-width: 0;">
               <div style="font-size: 12px; color: var(--ink-soft); margin-bottom: 2px;">อีเมล</div>
               <div style="font-family: 'JetBrains Mono', monospace; font-weight: 600; font-size: 13px; color: var(--ink); word-break: break-all;">${escapeHtml(email)}</div>
             </div>
-            <span style="font-size: 12px; color: var(--ink-muted);">→</span>
+            <span style="color: var(--ink-muted); display:inline-flex;">${icon('chevron-right', 16)}</span>
           </div>
         </a>
         ` : ''}
 
         <button onclick="copyContactInfo()" class="support-action" style="background: none; border: none; padding: 0; width: 100%; text-align: left; cursor: pointer; font-family: inherit;">
           <div style="display: flex; align-items: center; gap: 12px; padding: 10px;">
-            <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--brand-disraptor); color: white; display: grid; place-items: center; font-size: 18px; flex-shrink: 0;">📋</div>
+            <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--brand-disraptor); color: white; display: grid; place-items: center; flex-shrink: 0;">${icon('clipboard-list', 18)}</div>
             <div style="flex: 1;">
               <div style="font-size: 12px; color: var(--ink-soft); margin-bottom: 2px;">คัดลอกข้อมูลติดต่อ</div>
               <div style="font-size: 13px; color: var(--ink);">เบอร์โทร + อีเมล + ชื่อ</div>
             </div>
-            <span style="font-size: 12px; color: var(--ink-muted);">→</span>
+            <span style="color: var(--ink-muted); display:inline-flex;">${icon('chevron-right', 16)}</span>
           </div>
         </button>
       </div>
 
       ${teamHtml}
 
-      <p style="font-size: 12px; color: var(--ink-muted); text-align: center; margin-top: 16px; line-height: 1.5;">
-        💡 หากเจอปัญหาที่ไม่อยู่ในคู่มือ ติดต่อทีมงานได้ทันที
+      <p style="font-size: 12px; color: var(--ink-muted); text-align: center; margin-top: 16px; line-height: 1.5; display:flex; align-items:center; justify-content:center; gap:6px;">
+        ${icon('lightbulb', 14)} หากเจอปัญหาที่ไม่อยู่ในคู่มือ ติดต่อทีมงานได้ทันที
       </p>
     `,
     saveLabel: 'ปิด',
@@ -3659,13 +3889,13 @@ function copyContactInfo() {
   const author = branding.author || {};
   const text = `${author.name || ''} (${author.nameEn || ''})\n${author.title || ''} · ${author.titleEn || ''}\nโทร: ${author.phone || ''}\nอีเมล: ${author.email || ''}`;
   navigator.clipboard.writeText(text)
-    .then(() => toast('✅ คัดลอกข้อมูลแล้ว'))
+    .then(() => toast('คัดลอกข้อมูลแล้ว', 'check-circle'))
     .catch(() => toast('คัดลอกไม่สำเร็จ'));
 }
 
 function copyPhoneNumber(phone) {
   navigator.clipboard.writeText(phone)
-    .then(() => toast('✅ คัดลอกเบอร์แล้ว: ' + phone))
+    .then(() => toast('คัดลอกเบอร์แล้ว: ' + phone, 'check-circle'))
     .catch(() => toast('คัดลอกไม่สำเร็จ'));
 }
 
@@ -3702,7 +3932,7 @@ function printSolution() {
   printFooter.className = 'print-only print-footer';
   printFooter.innerHTML = `
     <div>${escapeHtml(branding.companyName || '')} · จัดทำโดย ${escapeHtml(author.name || '')} · ${escapeHtml(author.title || '')}</div>
-    <div>📞 ${escapeHtml(author.phone || '')}</div>
+    <div style="display:inline-flex; align-items:center; gap:5px;">${icon('phone', 12)} ${escapeHtml(author.phone || '')}</div>
   `;
   article.appendChild(printFooter);
 
@@ -3749,9 +3979,10 @@ function escapeHtml(s) {
     '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
   }[c]));
 }
-function toast(msg) {
+function toast(msg, iconName) {
   const root = document.getElementById('toastRoot');
-  root.innerHTML = `<div class="toast">${escapeHtml(msg)}</div>`;
+  const ic = iconName && ICONS[iconName] ? `<span class="toast-icon">${icon(iconName, 16)}</span>` : '';
+  root.innerHTML = `<div class="toast">${ic}<span>${escapeHtml(msg)}</span></div>`;
   setTimeout(() => root.innerHTML = '', 2400);
 }
 
@@ -3835,11 +4066,11 @@ function toggleBookmark(brandId, nodeId) {
   if (idx >= 0) {
     bookmarks.splice(idx, 1);
     saveBookmarks(bookmarks);
-    toast('🗑 ลบ Bookmark แล้ว');
+    toast('ลบ Bookmark แล้ว', 'trash');
   } else {
     bookmarks.push({ brandId, nodeId, addedAt: Date.now() });
     saveBookmarks(bookmarks);
-    toast('⭐ ปักหมุดแล้ว');
+    toast('ปักหมุดแล้ว', 'star');
   }
   render();
 }
@@ -3981,7 +4212,7 @@ function render() {
   // Update admin icon based on lock state
   const adminIcon = document.getElementById('adminIcon');
   if (adminIcon) {
-    adminIcon.textContent = isAdminUnlocked() ? '🔓' : '🔒';
+    adminIcon.innerHTML = icon(isAdminUnlocked() ? 'unlock' : 'lock', 15);
   }
 
   // Show Publish controls only when admin is unlocked
@@ -4066,16 +4297,16 @@ function renderHome(root) {
   root.innerHTML = `
     <section class="hero">
       <div class="hero-badge">
-        <span class="hero-badge-dot">⚡</span>
+        <span class="hero-badge-dot">${icon('zap', 13)}</span>
         <span class="hero-badge-pulse"></span>
         <span>v${escapeHtml(branding.version || '1.0')} · อัพเดต ${formatThaiDate(branding.lastUpdated)}</span>
       </div>
       <h1>คู่มืองานซ่อม<span class="accent"> สำหรับช่างและพนักงาน</span></h1>
       <p>เลือกแบรนด์เครื่องล้างรถเพื่อดูรายการ Error Code, ไดอะแกรมเครื่อง, และวิธีแก้ปัญหาแบบ Step-by-Step</p>
       <div class="hero-stats">
-        <span class="hero-stat">🏷️ <strong>${totalBrands}</strong> แบรนด์</span>
-        <span class="hero-stat">🔧 <strong>${totalSolutions}</strong> วิธีแก้</span>
-        <span class="hero-stat">📐 <strong>${totalDiagrams}</strong> ไดอะแกรม</span>
+        <span class="hero-stat">${icon('tag', 15)} <strong>${totalBrands}</strong> แบรนด์</span>
+        <span class="hero-stat">${icon('wrench', 15)} <strong>${totalSolutions}</strong> วิธีแก้</span>
+        <span class="hero-stat">${icon('map', 15)} <strong>${totalDiagrams}</strong> ไดอะแกรม</span>
       </div>
     </section>
 
@@ -4093,7 +4324,7 @@ function renderHome(root) {
               <div><span class="num">${(b.diagrams || []).length}</span><span class="lbl">ไดอะแกรม</span></div>
               <div><span class="num">${(b.diagrams || []).reduce((s, d) => s + (d.hotspots || []).length, 0)}</span><span class="lbl">Hotspot</span></div>
             </div>
-            <div class="brand-card-cta">เข้าดูคู่มือ →</div>
+            <div class="brand-card-cta">เข้าดูคู่มือ <span class="cta-arrow">${icon('arrow-right', 16)}</span></div>
           </div>
         </button>
       `;
@@ -4109,8 +4340,8 @@ function renderHome(root) {
         <div class="credit-name">${escapeHtml(author.name)}</div>
         <div class="credit-name-en">${escapeHtml(author.nameEn || '')}</div>
         <div class="credit-title">${escapeHtml(author.title || '')} · ${escapeHtml(author.titleEn || '')}</div>
-        <div class="credit-phone">📞 ${escapeHtml(author.phone || '')}</div>
-        ${author.email ? `<div class="credit-email">✉ ${escapeHtml(author.email)}</div>` : ''}
+        <div class="credit-phone">${icon('phone', 14)} ${escapeHtml(author.phone || '')}</div>
+        ${author.email ? `<div class="credit-email">${icon('mail', 14)} ${escapeHtml(author.email)}</div>` : ''}
         ${branding.companyName ? `<div class="credit-company">${escapeHtml(branding.companyName)}</div>` : ''}
       </div>
       ${(branding.supportTeam || []).length > 0 ? `
@@ -4119,7 +4350,7 @@ function renderHome(root) {
         <div class="support-team-list">
           ${branding.supportTeam.map(t => `
             <a href="tel:${(t.phone||'').replace(/[^\\d+]/g,'')}" class="support-team-item">
-              <span class="support-team-icon">🔧</span>
+              <span class="support-team-icon">${icon('wrench', 16)}</span>
               <span class="support-team-name">${escapeHtml(t.name)}</span>
               <span class="support-team-phone">${escapeHtml(t.phone)}</span>
             </a>
@@ -4226,15 +4457,15 @@ function renderBrand(root) {
         <span class="node-toolbar-section">
           <span class="node-toolbar-label">ระดับความยาก</span>
           <button class="toolbar-chip ${diffFilter==='all'?'active':''}" onclick="setDifficultyFilter('all')">ทั้งหมด</button>
-          <button class="toolbar-chip diff-easy ${diffFilter==='ง่าย'?'active':''}" onclick="setDifficultyFilter('ง่าย')">🟢 ง่าย</button>
-          <button class="toolbar-chip diff-mid ${diffFilter==='ปานกลาง'?'active':''}" onclick="setDifficultyFilter('ปานกลาง')">🟡 ปานกลาง</button>
-          <button class="toolbar-chip diff-hard ${diffFilter==='ยาก'?'active':''}" onclick="setDifficultyFilter('ยาก')">🔴 ยาก</button>
+          <button class="toolbar-chip diff-easy ${diffFilter==='ง่าย'?'active':''}" onclick="setDifficultyFilter('ง่าย')"><span class="diff-dot"></span> ง่าย</button>
+          <button class="toolbar-chip diff-mid ${diffFilter==='ปานกลาง'?'active':''}" onclick="setDifficultyFilter('ปานกลาง')"><span class="diff-dot"></span> ปานกลาง</button>
+          <button class="toolbar-chip diff-hard ${diffFilter==='ยาก'?'active':''}" onclick="setDifficultyFilter('ยาก')"><span class="diff-dot"></span> ยาก</button>
         </span>
         <span class="node-toolbar-divider"></span>
         <span class="node-toolbar-section">
           <span class="node-toolbar-label">เรียง</span>
           <button class="toolbar-chip ${sort==='default'?'active':''}" onclick="setSort('default')">ตามลำดับ</button>
-          <button class="toolbar-chip ${sort==='top'?'active':''}" onclick="setSort('top')">🔥 ฮิต</button>
+          <button class="toolbar-chip ${sort==='top'?'active':''}" onclick="setSort('top')">${icon('flame', 14)} ฮิต</button>
           <button class="toolbar-chip ${sort==='difficulty'?'active':''}" onclick="setSort('difficulty')">ง่าย→ยาก</button>
           <button class="toolbar-chip ${sort==='title'?'active':''}" onclick="setSort('title')">A→Z</button>
         </span>
@@ -4253,8 +4484,8 @@ function renderBrand(root) {
       <div class="node-grid density-${density}">
         ${sorted.map(n => `
           <div class="node-card ${isSolutionNode(n) ? 'is-solution' : ''} ${n.isTop ? 'is-top' : ''} ${n.taskType ? 'has-task task-' + n.taskType.toLowerCase() : ''}" role="button" tabindex="0" onclick="navigateInto('${n.id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();navigateInto('${n.id}')}">
-            ${n.isTop ? `<span class="top-badge" title="ปัญหายอดฮิต">🔥</span>` : ''}
-            ${isSolutionNode(n) ? `<button class="bookmark-btn ${isBookmarked(brand.id, n.id) ? 'active' : ''}" onclick="event.stopPropagation(); toggleBookmark('${brand.id}', '${n.id}')" title="${isBookmarked(brand.id, n.id) ? 'ลบ Bookmark' : 'ปักหมุด'}">${isBookmarked(brand.id, n.id) ? '★' : '☆'}</button>` : ''}
+            ${n.isTop ? `<span class="top-badge" title="ปัญหายอดฮิต">${icon('flame', 13)}</span>` : ''}
+            ${isSolutionNode(n) ? `<button class="bookmark-btn ${isBookmarked(brand.id, n.id) ? 'active' : ''}" onclick="event.stopPropagation(); toggleBookmark('${brand.id}', '${n.id}')" title="${isBookmarked(brand.id, n.id) ? 'ลบ Bookmark' : 'ปักหมุด'}" aria-label="${isBookmarked(brand.id, n.id) ? 'ลบ Bookmark' : 'ปักหมุด'}">${icon('star', 18)}</button>` : ''}
             ${n.taskType && isSolutionNode(n) ? `<span class="task-badge task-badge-${n.taskType.toLowerCase()}" title="${n.taskType}">${TASK_TYPE_INFO[n.taskType]?.icon || ''} ${n.taskType}</span>` : ''}
             <div class="node-card-title">${escapeHtml(n.title)}</div>
             ${n.description ? `<div class="node-card-desc">${escapeHtml(n.description)}</div>` : ''}
@@ -4262,10 +4493,10 @@ function renderBrand(root) {
               ${isSolutionNode(n)
                 ? `<span class="badge solution-badge">● Solution</span>
                    ${n.solution.difficulty ? `<span class="badge difficulty-badge difficulty-${escapeHtml((n.solution.difficulty||'').toLowerCase())}">${escapeHtml(n.solution.difficulty)}</span>` : ''}
-                   ${n.solution.estimatedTime ? `<span class="badge time-badge">⏱ ${escapeHtml(n.solution.estimatedTime)}</span>` : ''}`
+                   ${n.solution.estimatedTime ? `<span class="badge time-badge">${icon('clock', 13)} ${escapeHtml(n.solution.estimatedTime)}</span>` : ''}`
                 : `<span class="badge">${(n.children || []).length} รายการย่อย</span>`}
             </div>
-            <div class="arrow">→</div>
+            <div class="arrow">${icon('chevron-right', 18)}</div>
           </div>
         `).join('')}
       </div>
@@ -4295,7 +4526,7 @@ function renderRecentlyViewed() {
     <section class="recently-viewed">
       ${bookmarks.length > 0 ? `
         <div class="recently-viewed-header">
-          <h3>⭐ ปักหมุดไว้ <span class="count-badge">${bookmarks.length}</span></h3>
+          <h3>${icon('star', 18)} ปักหมุดไว้ <span class="count-badge">${bookmarks.length}</span></h3>
         </div>
         <div class="recently-viewed-list">
           ${bookmarks.slice(0, 6).map(r => {
@@ -4303,7 +4534,7 @@ function renderRecentlyViewed() {
             return `
               <button class="recently-viewed-item bookmark-item" onclick="navigateToNode('${r.brand.id}', ${JSON.stringify(r.path).replace(/"/g, '&quot;')})">
                 <div class="rv-brand-tag" style="background: ${r.brand.color}; color: #1a1a1a;">
-                  ⭐ ${escapeHtml(r.brand.name)}
+                  <span class="rv-star is-filled">${icon('star', 13)}</span> ${escapeHtml(r.brand.name)}
                 </div>
                 <div class="rv-content">
                   <div class="rv-title">${escapeHtml(r.node.title)}</div>
@@ -4312,7 +4543,7 @@ function renderRecentlyViewed() {
                     <span class="rv-time">ปักหมุดเมื่อ ${formatRelativeTime(r.addedAt)}</span>
                   </div>
                 </div>
-                <div class="rv-arrow">→</div>
+                <div class="rv-arrow">${icon('chevron-right', 16)}</div>
               </button>
             `;
           }).join('')}
@@ -4321,7 +4552,7 @@ function renderRecentlyViewed() {
 
       ${recent.length > 0 ? `
         <div class="recently-viewed-header" ${bookmarks.length > 0 ? 'style="margin-top: 24px;"' : ''}>
-          <h3>📋 ดูล่าสุด <span class="count-badge">${recent.length}</span></h3>
+          <h3>${icon('clipboard-list', 18)} ดูล่าสุด <span class="count-badge">${recent.length}</span></h3>
           <button class="btn btn-sm" onclick="clearRecent()" title="ล้างประวัติ">ล้าง</button>
         </div>
         <div class="recently-viewed-list">
@@ -4339,7 +4570,7 @@ function renderRecentlyViewed() {
                     <span class="rv-time">${formatRelativeTime(r.viewedAt)}</span>
                   </div>
                 </div>
-                <div class="rv-arrow">→</div>
+                <div class="rv-arrow">${icon('chevron-right', 16)}</div>
               </button>
             `;
           }).join('')}
@@ -4392,14 +4623,16 @@ function countTaskTypes(brand) {
 
 const TASK_TYPE_INFO = {
   CM: {
-    icon: '🛠',
+    icon: icon('settings', 15),
+    iconName: 'settings',
     label: 'CM',
     fullLabel: 'Corrective Maintenance · งานบำรุงรักษาแก้ไข',
     desc: 'งานแก้ไขปัญหาเฉพาะหน้า เช่น ทำความสะอาดเซ็นเซอร์ เปลี่ยนซีล แก้ไขเล็กๆ น้อยๆ ที่ทำได้ทันที',
     color: '#0891b2'
   },
   Repair: {
-    icon: '🔧',
+    icon: icon('wrench', 15),
+    iconName: 'wrench',
     label: 'Repair',
     fullLabel: 'Repair · งานซ่อม',
     desc: 'งานซ่อมแซมเมื่อเกิดปัญหา (Error Code) — ใช้แก้เครื่องที่ทำงานผิดปกติ',
@@ -4420,27 +4653,27 @@ function renderBrandTabs(brand, currentTab) {
   return `
     <div class="brand-tabs">
       <button class="brand-tab ${currentTab === 'topics' ? 'active' : ''}" onclick="switchBrandTab('topics')">
-        📋 ทั้งหมด <span class="tab-count">${totalSolutions}</span>
+        ${icon('clipboard-list', 16)} ทั้งหมด <span class="tab-count">${totalSolutions}</span>
       </button>
       ${hasTop ? `
       <button class="brand-tab ${currentTab === 'top' ? 'active' : ''}" onclick="switchBrandTab('top')">
-        🔥 ใช้บ่อย <span class="tab-count">${topItems.length}</span>
+        ${icon('flame', 16)} ใช้บ่อย <span class="tab-count">${topItems.length}</span>
       </button>` : ''}
       ${counts.Repair > 0 ? `
       <button class="brand-tab task-tab ${currentTab === 'Repair' ? 'active' : ''}" data-task="Repair" onclick="switchBrandTab('Repair')">
-        🔧 Repair <span class="tab-count">${counts.Repair}</span>
+        ${icon('wrench', 16)} Repair <span class="tab-count">${counts.Repair}</span>
       </button>` : ''}
       ${counts.CM > 0 ? `
       <button class="brand-tab task-tab ${currentTab === 'CM' ? 'active' : ''}" data-task="CM" onclick="switchBrandTab('CM')">
-        🛠 CM <span class="tab-count">${counts.CM}</span>
+        ${icon('settings', 16)} CM <span class="tab-count">${counts.CM}</span>
       </button>` : ''}
       ${hasSpareParts ? `
       <button class="brand-tab ${currentTab === 'spareparts' ? 'active' : ''}" onclick="switchBrandTab('spareparts')">
-        🔩 อะไหล่ <span class="tab-count">${brand.spareParts.length}</span>
+        ${icon('package', 16)} อะไหล่ <span class="tab-count">${brand.spareParts.length}</span>
       </button>` : ''}
       ${hasDiagrams ? `
       <button class="brand-tab ${currentTab === 'diagrams' ? 'active' : ''}" onclick="switchBrandTab('diagrams')">
-        🗺 ไดอะแกรม <span class="tab-count">${brand.diagrams.length}</span>
+        ${icon('map', 16)} ไดอะแกรม <span class="tab-count">${brand.diagrams.length}</span>
       </button>` : ''}
     </div>
   `;
@@ -4455,7 +4688,7 @@ function renderBrandSpareParts(root, brand) {
 
     <div class="level-header">
       <div class="level-header-left" style="--brand-color: ${brand.color};">
-        <div class="level-tag"><span class="dot"></span> ${escapeHtml(brand.name)} · 🔩 อะไหล่</div>
+        <div class="level-tag"><span class="dot"></span> ${escapeHtml(brand.name)} · ${icon('package', 13)} อะไหล่</div>
         <h2>รายการอะไหล่ (Spare Parts)</h2>
         <p style="color: var(--ink-soft); margin-top: 6px; max-width: 640px;">รายการอะไหล่สำคัญที่ควรสำรองไว้ในร้าน พร้อมข้อมูลใช้กับ Error Code ไหน + ระยะเวลาสั่ง</p>
       </div>
@@ -4466,7 +4699,7 @@ function renderBrandSpareParts(root, brand) {
         ${parts.map(p => `
           <article class="spare-part-card">
             <div class="spare-part-header">
-              <div class="spare-part-icon" style="background: ${brand.color};">🔩</div>
+              <div class="spare-part-icon" style="background: ${brand.color};">${icon('package', 22)}</div>
               <div style="flex: 1; min-width: 0;">
                 <h3>${escapeHtml(p.title)}</h3>
                 ${p.description ? `<p>${escapeHtml(p.description)}</p>` : ''}
@@ -4474,7 +4707,7 @@ function renderBrandSpareParts(root, brand) {
             </div>
             ${p.usedInErrors && p.usedInErrors.length ? `
               <div class="spare-part-section">
-                <div class="spare-part-label">📍 ใช้กับ Error Code:</div>
+                <div class="spare-part-label">${icon('map-pin', 14)} ใช้กับ Error Code:</div>
                 <div class="spare-part-tags">
                   ${p.usedInErrors.map(e => `<span class="chip">${escapeHtml(e)}</span>`).join('')}
                 </div>
@@ -4482,7 +4715,7 @@ function renderBrandSpareParts(root, brand) {
             ` : ''}
             ${p.info && p.info.filter(i => i).length ? `
               <div class="spare-part-section">
-                <div class="spare-part-label">ℹ️ ข้อมูลเพิ่มเติม:</div>
+                <div class="spare-part-label">${icon('info', 14)} ข้อมูลเพิ่มเติม:</div>
                 <ul class="spare-part-info">
                   ${p.info.filter(i => i).map(i => `<li>${escapeHtml(i)}</li>`).join('')}
                 </ul>
@@ -4490,10 +4723,10 @@ function renderBrandSpareParts(root, brand) {
             ` : ''}
             ${p.leadTime ? `
               <div class="spare-part-footer">
-                <span style="color: var(--ink-muted);">⏱ Lead Time:</span> <strong>${escapeHtml(p.leadTime)}</strong>
+                <span style="color: var(--ink-muted); display:inline-flex; align-items:center; gap:4px;">${icon('clock', 13)} Lead Time:</span> <strong>${escapeHtml(p.leadTime)}</strong>
               </div>
             ` : ''}
-            ${p.note ? `<div class="warning-box" style="margin-top: 12px; font-size: 13px;"><strong>⚠</strong>${escapeHtml(p.note)}</div>` : ''}
+            ${p.note ? `<div class="warning-box" style="margin-top: 12px; font-size: 13px; display:flex; gap:8px; align-items:flex-start;"><strong style="display:inline-flex;">${icon('alert-triangle', 15)}</strong>${escapeHtml(p.note)}</div>` : ''}
           </article>
         `).join('')}
       </div>
@@ -4524,7 +4757,7 @@ function renderBrandTop(root, brand, topItems) {
 
     <div class="level-header">
       <div class="level-header-left" style="--brand-color: ${brand.color};">
-        <div class="level-tag"><span class="dot"></span> ${escapeHtml(brand.name)} · 🔥 ใช้บ่อย</div>
+        <div class="level-tag"><span class="dot"></span> ${escapeHtml(brand.name)} · ${icon('flame', 13)} ใช้บ่อย</div>
         <h2>ปัญหาที่พบบ่อยที่สุด</h2>
         <p style="color: var(--ink-soft); margin-top: 6px; max-width: 640px;">รวมรายการ Error / ขั้นตอนซ่อมที่ช่างใช้บ่อยที่สุด — กดเข้าได้ทันที</p>
       </div>
@@ -4543,12 +4776,12 @@ function renderBrandTop(root, brand, topItems) {
               <h3>${escapeHtml(item.node.title)}</h3>
               ${item.node.description ? `<p>${escapeHtml(item.node.description.slice(0, 100))}${item.node.description.length > 100 ? '...' : ''}</p>` : ''}
               <div class="top-item-meta">
-                ${sol.difficulty ? `<span>📊 ${escapeHtml(sol.difficulty)}</span>` : ''}
-                ${sol.estimatedTime ? `<span>⏱ ${escapeHtml(sol.estimatedTime)}</span>` : ''}
-                ${stepCount ? `<span>👣 ${stepCount} ขั้นตอน</span>` : ''}
+                ${sol.difficulty ? `<span>${icon('gauge', 14)} ${escapeHtml(sol.difficulty)}</span>` : ''}
+                ${sol.estimatedTime ? `<span>${icon('clock', 14)} ${escapeHtml(sol.estimatedTime)}</span>` : ''}
+                ${stepCount ? `<span>${icon('footprints', 14)} ${stepCount} ขั้นตอน</span>` : ''}
               </div>
             </div>
-            <div class="top-item-arrow">→</div>
+            <div class="top-item-arrow">${icon('chevron-right', 16)}</div>
           </button>
         `;
       }).join('')}
@@ -4557,7 +4790,7 @@ function renderBrandTop(root, brand, topItems) {
 }
 
 function renderBrandTaskList(root, brand, taskType, items) {
-  const taskInfo = TASK_TYPE_INFO[taskType] || { icon: '🔧', label: taskType, desc: '', color: 'var(--brand-disraptor)' };
+  const taskInfo = TASK_TYPE_INFO[taskType] || { icon: icon('wrench', 15), label: taskType, desc: '', color: 'var(--brand-disraptor)' };
   root.innerHTML = `
     ${renderBackBar(brand)}
     ${renderBreadcrumb(brand)}
@@ -4588,12 +4821,12 @@ function renderBrandTaskList(root, brand, taskType, items) {
                 <h3>${escapeHtml(item.node.title)}</h3>
                 ${item.node.description ? `<p>${escapeHtml(item.node.description.slice(0, 100))}${item.node.description.length > 100 ? '...' : ''}</p>` : ''}
                 <div class="top-item-meta">
-                  ${sol.difficulty ? `<span>📊 ${escapeHtml(sol.difficulty)}</span>` : ''}
-                  ${sol.estimatedTime ? `<span>⏱ ${escapeHtml(sol.estimatedTime)}</span>` : ''}
-                  ${stepCount ? `<span>👣 ${stepCount} ขั้นตอน</span>` : ''}
+                  ${sol.difficulty ? `<span>${icon('gauge', 14)} ${escapeHtml(sol.difficulty)}</span>` : ''}
+                  ${sol.estimatedTime ? `<span>${icon('clock', 14)} ${escapeHtml(sol.estimatedTime)}</span>` : ''}
+                  ${stepCount ? `<span>${icon('footprints', 14)} ${stepCount} ขั้นตอน</span>` : ''}
                 </div>
               </div>
-              <div class="top-item-arrow">→</div>
+              <div class="top-item-arrow">${icon('chevron-right', 16)}</div>
             </button>
           `;
         }).join('')}
@@ -4616,10 +4849,10 @@ function renderBrandDiagrams(root, brand) {
 
     <div class="brand-tabs">
       <button class="brand-tab" onclick="switchBrandTab('cm')">
-        🔴 CM <span class="tab-count">${countNodes(brand).solutionCount}</span>
+        ${icon('clipboard-list', 16)} CM <span class="tab-count">${countNodes(brand).solutionCount}</span>
       </button>
       <button class="brand-tab active" onclick="switchBrandTab('diagrams')">
-        🗺 ไดอะแกรม <span class="tab-count">${brand.diagrams.length}</span>
+        ${icon('map', 16)} ไดอะแกรม <span class="tab-count">${brand.diagrams.length}</span>
       </button>
     </div>
 
@@ -4708,7 +4941,7 @@ function renderSolution(root) {
     <article class="solution" style="--brand-color: ${brand.color};" id="printableSolution">
       <header class="solution-header">
         <div class="solution-header-actions no-print">
-          <button class="btn btn-sm" onclick="printSolution()" title="พิมพ์/บันทึกเป็น PDF">🖨 พิมพ์ / PDF</button>
+          <button class="btn btn-sm" onclick="printSolution()" title="พิมพ์/บันทึกเป็น PDF">${icon('printer', 15)} พิมพ์ / PDF</button>
         </div>
         <h2>${escapeHtml(node.title)}</h2>
         <p>${escapeHtml(node.description || '')}</p>
@@ -4719,7 +4952,7 @@ function renderSolution(root) {
         </div>
       </header>
       <div class="solution-body">
-        ${sol.warning ? `<div class="warning-box"><strong>⚠ ข้อควรระวัง</strong>${escapeHtml(sol.warning)}</div>` : ''}
+        ${sol.warning ? `<div class="warning-box"><strong>${icon('alert-triangle', 15)} ข้อควรระวัง</strong>${escapeHtml(sol.warning)}</div>` : ''}
         ${sol.symptoms && sol.symptoms.length ? `
           <section class="section-block">
             <h3>อาการที่พบ</h3>
@@ -4728,7 +4961,7 @@ function renderSolution(root) {
         ${sol.tools && sol.tools.length ? `
           <section class="section-block">
             <h3>เครื่องมือที่ต้องใช้</h3>
-            <div class="tools-list">${sol.tools.map(t => `<span class="chip">🔧 ${escapeHtml(t)}</span>`).join('')}</div>
+            <div class="tools-list">${sol.tools.map(t => `<span class="chip">${icon('wrench', 13)} ${escapeHtml(t)}</span>`).join('')}</div>
           </section>` : ''}
         ${totalSteps ? `
           <section class="section-block no-print" style="margin-bottom: 8px;">
@@ -4736,10 +4969,10 @@ function renderSolution(root) {
               <h3 style="margin: 0;">ขั้นตอนการแก้ไข</h3>
               <div class="mode-toggle-buttons">
                 <button class="mode-toggle-btn ${viewMode === 'stepper' ? 'active' : ''}" onclick="setSolutionViewMode('stepper')" title="ดูทีละขั้นตอน">
-                  <span>👣</span> ทีละขั้น
+                  ${icon('footprints', 16)} ทีละขั้น
                 </button>
                 <button class="mode-toggle-btn ${viewMode === 'all' ? 'active' : ''}" onclick="setSolutionViewMode('all')" title="ดูทั้งหมดในหน้าเดียว">
-                  <span>📋</span> ดูทั้งหมด
+                  ${icon('list', 16)} ดูทั้งหมด
                 </button>
               </div>
             </div>
@@ -4774,7 +5007,7 @@ function renderSolutionStepper(steps, currentIdx) {
           <button class="stepper-dot ${i < idx ? 'done' : ''} ${i === idx ? 'current' : ''}"
                   onclick="gotoStep(${i})"
                   title="ขั้นที่ ${i+1}">
-            ${i < idx ? '✓' : i + 1}
+            ${i < idx ? icon('check', 14) : i + 1}
           </button>
           ${i < totalSteps - 1 ? `<div class="stepper-line ${i < idx ? 'done' : ''}"></div>` : ''}
         `).join('')}
@@ -4788,7 +5021,7 @@ function renderSolutionStepper(steps, currentIdx) {
         ${stepImage ? `
           <div class="stepper-image" onclick="openLightbox('${escapeHtml(stepImage).replace(/'/g, "\\'")}')">
             <img src="${escapeHtml(stepImage)}" alt="" onerror="this.parentElement.style.display='none'">
-            <div class="stepper-image-zoom">🔍 คลิกเพื่อขยาย</div>
+            <div class="stepper-image-zoom">${icon('zoom-in', 14)} คลิกเพื่อขยาย</div>
           </div>
         ` : ''}
         <div class="stepper-text">
@@ -4799,7 +5032,7 @@ function renderSolutionStepper(steps, currentIdx) {
 
       <div class="stepper-actions">
         <button class="btn ${isFirst ? 'btn-disabled' : ''}" onclick="prevStep()" ${isFirst ? 'disabled' : ''}>
-          ← ก่อนหน้า
+          ${icon('arrow-left', 16)} ก่อนหน้า
         </button>
         <div class="stepper-progress-text">
           <span class="stepper-progress-bar">
@@ -4807,8 +5040,8 @@ function renderSolutionStepper(steps, currentIdx) {
           </span>
         </div>
         ${isLast
-          ? `<button class="btn btn-success" onclick="finishStepper()">✓ เสร็จสิ้น</button>`
-          : `<button class="btn btn-primary" onclick="nextStep()">ถัดไป →</button>`
+          ? `<button class="btn btn-success" onclick="finishStepper()">${icon('check', 16)} เสร็จสิ้น</button>`
+          : `<button class="btn btn-primary" onclick="nextStep()">ถัดไป ${icon('arrow-right', 16)}</button>`
         }
       </div>
     </section>
@@ -4859,7 +5092,7 @@ function prevStep() {
 }
 
 function finishStepper() {
-  toast('🎉 เสร็จสิ้นทุกขั้นตอนแล้ว!');
+  toast('เสร็จสิ้นทุกขั้นตอนแล้ว!', 'check-circle');
   // Reset to first step
   viewState.stepperIdx = 0;
 }
@@ -4914,7 +5147,7 @@ function renderDiagramView(root) {
                 <div class="hotspot-list-num ${brandClass}" style="background: ${brand.color};">${i+1}</div>
                 <div class="hotspot-list-text">
                   <div>${escapeHtml(h.label || 'ไม่ได้ตั้งชื่อ')}</div>
-                  ${link ? `<div class="hotspot-list-link">→ ${escapeHtml(link.brand.name)} · ${escapeHtml(link.node.title)}</div>` : '<div class="hotspot-list-link" style="color: var(--ink-muted);">— ยังไม่ได้เชื่อมโยง —</div>'}
+                  ${link ? `<div class="hotspot-list-link">${icon('arrow-right', 13)} ${escapeHtml(link.brand.name)} · ${escapeHtml(link.node.title)}</div>` : '<div class="hotspot-list-link" style="color: var(--ink-muted);">— ยังไม่ได้เชื่อมโยง —</div>'}
                 </div>
               </div>
             `;
@@ -5143,10 +5376,10 @@ function lockAdmin() {
 
 function promptAdminPassword() {
   showModal({
-    title: '🔒 เข้าสู่โหมด Admin',
+    title: 'เข้าสู่โหมด Admin', titleIcon: 'lock',
     body: `
       <div style="text-align: center; padding: 8px 0 16px;">
-        <div style="font-size: 48px; margin-bottom: 8px;">🔐</div>
+        <div style="margin-bottom: 8px; color: var(--accent-ink);">${icon('lock', 44)}</div>
         <p style="color: var(--ink-soft); font-size: 14px;">กรอกรหัสผ่านเพื่อเข้าสู่โหมดแก้ไข</p>
       </div>
       <div class="form-group">
@@ -5204,19 +5437,19 @@ function renderAdmin(root) {
     <div class="admin-panel">
       <div class="level-header" style="margin-bottom: 16px;">
         <div class="level-header-left">
-          <div class="level-tag"><span class="dot"></span> 🔓 Admin Panel · ปลดล็อกแล้ว</div>
+          <div class="level-tag"><span class="dot"></span> ${icon('unlock', 13)} Admin Panel · ปลดล็อกแล้ว</div>
           <h2>จัดการข้อมูลคู่มือ</h2>
         </div>
         <div style="display: flex; gap: 8px;">
           <button class="btn" onclick="navigateHome()">← กลับหน้าแรก</button>
-          <button class="btn btn-danger" onclick="lockAdmin()" title="ล็อก Admin">🔒 ออกจาก Admin</button>
+          <button class="btn btn-danger" onclick="lockAdmin()" title="ล็อก Admin">${icon('lock', 15)} ออกจาก Admin</button>
         </div>
       </div>
       <div class="admin-tabs">
-        <button class="admin-tab ${adminTab === 'tree' ? 'active' : ''}" onclick="switchAdminTab('tree')">📋 โครงสร้างข้อมูล</button>
-        <button class="admin-tab ${adminTab === 'diagrams' ? 'active' : ''}" onclick="switchAdminTab('diagrams')">🗺 ไดอะแกรม + Hotspot</button>
+        <button class="admin-tab ${adminTab === 'tree' ? 'active' : ''}" onclick="switchAdminTab('tree')">${icon('clipboard-list', 15)} โครงสร้างข้อมูล</button>
+        <button class="admin-tab ${adminTab === 'diagrams' ? 'active' : ''}" onclick="switchAdminTab('diagrams')">${icon('map', 15)} ไดอะแกรม + Hotspot</button>
         <button class="admin-tab ${adminTab === 'json' ? 'active' : ''}" onclick="switchAdminTab('json')">⌨ Import / Export</button>
-        <button class="admin-tab ${adminTab === 'reset' ? 'active' : ''}" onclick="switchAdminTab('reset')">⚠ รีเซ็ต</button>
+        <button class="admin-tab ${adminTab === 'reset' ? 'active' : ''}" onclick="switchAdminTab('reset')">${icon('alert-triangle', 15)} รีเซ็ต</button>
       </div>
       ${adminTab === 'tree' ? renderAdminTree() : ''}
       ${adminTab === 'diagrams' ? renderAdminDiagrams() : ''}
@@ -5250,7 +5483,7 @@ function renderTreeBrand(brand) {
         <span class="name" style="font-weight: 700;">${escapeHtml(brand.name)} — ${escapeHtml(brand.fullName)}</span>
         <div class="actions" style="opacity: 1;">
           <button onclick="openNodeEdit('${brand.id}', null, null)" title="เพิ่มหมวดหลัก">+</button>
-          <button onclick="openBrandEdit('${brand.id}')" title="แก้ไข">✎</button>
+          <button onclick="openBrandEdit('${brand.id}')" title="แก้ไข">${icon('pencil', 15)}</button>
           <button onclick="deleteBrand('${brand.id}')" title="ลบ">×</button>
         </div>
       </div>
@@ -5272,7 +5505,7 @@ function renderTreeNode(brandId, node, parentPath) {
         <span class="name" onclick="openNodeEdit('${brandId}', '${parentPath.join('/')}', '${node.id}')">${escapeHtml(node.title)}</span>
         <div class="actions">
           ${!isSol ? `<button onclick="openNodeEdit('${brandId}', '${path.join('/')}', null)" title="เพิ่มย่อย">+</button>` : ''}
-          <button onclick="openNodeEdit('${brandId}', '${parentPath.join('/')}', '${node.id}')" title="แก้ไข">✎</button>
+          <button onclick="openNodeEdit('${brandId}', '${parentPath.join('/')}', '${node.id}')" title="แก้ไข">${icon('pencil', 15)}</button>
           <button onclick="deleteNode('${brandId}', '${path.join('/')}')" title="ลบ">×</button>
         </div>
       </div>
@@ -5309,8 +5542,8 @@ function renderAdminDiagrams() {
                     <div style="font-size: 11px; color: var(--ink-muted);">${(d.hotspots || []).length} จุด · ${escapeHtml((d.description || '—').slice(0, 80))}</div>
                   </div>
                   <div style="display: flex; gap: 6px; flex-shrink: 0;">
-                    <button class="btn btn-sm" onclick="openHotspotEditor('${brand.id}', '${d.id}')" title="จัดการ Hotspot">📍 Hotspot</button>
-                    <button class="btn btn-sm" onclick="openDiagramEdit('${brand.id}', '${d.id}')" title="แก้ไข">✎</button>
+                    <button class="btn btn-sm" onclick="openHotspotEditor('${brand.id}', '${d.id}')" title="จัดการ Hotspot">${icon('map-pin', 14)} Hotspot</button>
+                    <button class="btn btn-sm" onclick="openDiagramEdit('${brand.id}', '${d.id}')" title="แก้ไข">${icon('pencil', 15)}</button>
                     <button class="btn btn-sm btn-danger" onclick="deleteDiagram('${brand.id}', '${d.id}')" title="ลบ">×</button>
                   </div>
                 </div>
@@ -5353,9 +5586,9 @@ function openDiagramEdit(brandId, diagramId) {
       <div class="form-group">
         <label>รูปไดอะแกรม</label>
         <div class="tabs-inner">
-          <button class="tab-inner ${diagramEditState.mode === 'upload' ? 'active' : ''}" onclick="switchDiagramMode('upload')">📤 อัพโหลดจากเครื่อง</button>
-          <button class="tab-inner ${diagramEditState.mode === 'url' ? 'active' : ''}" onclick="switchDiagramMode('url')">🔗 URL</button>
-          ${diagramEditState.imageData ? `<button class="tab-inner ${diagramEditState.mode === 'preview' ? 'active' : ''}" onclick="switchDiagramMode('preview')">👁 ดูรูป</button>` : ''}
+          <button class="tab-inner ${diagramEditState.mode === 'upload' ? 'active' : ''}" onclick="switchDiagramMode('upload')">${icon('upload', 15)} อัพโหลดจากเครื่อง</button>
+          <button class="tab-inner ${diagramEditState.mode === 'url' ? 'active' : ''}" onclick="switchDiagramMode('url')">${icon('link', 15)} URL</button>
+          ${diagramEditState.imageData ? `<button class="tab-inner ${diagramEditState.mode === 'preview' ? 'active' : ''}" onclick="switchDiagramMode('preview')">${icon('eye', 15)} ดูรูป</button>` : ''}
         </div>
         <div id="diagramImageInput">${renderDiagramImageInput()}</div>
       </div>
@@ -5396,7 +5629,7 @@ function renderDiagramImageInput() {
   if (diagramEditState.mode === 'upload') {
     return `
       <div class="upload-zone" id="uploadZone" onclick="document.getElementById('fileInput').click()">
-        <div class="upload-zone-icon">📤</div>
+        <div class="upload-zone-icon">${icon('upload', 26)}</div>
         <div class="upload-zone-text"><strong>คลิก</strong> หรือ <strong>ลากรูป</strong>มาวางที่นี่<br><small>รองรับ JPG, PNG, GIF, WebP (แนะนำไม่เกิน 1 MB)</small></div>
         <input type="file" id="fileInput" accept="image/*" style="display:none;" onchange="handleFileUpload(event)">
       </div>
@@ -5880,13 +6113,13 @@ function openNodeEdit(brandId, parentPathStr, nodeId) {
           <div class="task-type-selector">
             <label class="task-type-option ${(node.taskType || 'Repair') === 'CM' ? 'selected' : ''}">
               <input type="radio" name="nf-tasktype" value="CM" ${(node.taskType || 'Repair') === 'CM' ? 'checked' : ''}>
-              <span class="task-type-icon" style="color: #0891b2;">🛠</span>
+              <span class="task-type-icon" style="color: #0891b2;">${icon('settings', 16)}</span>
               <span class="task-type-label">CM</span>
               <span class="task-type-desc">Corrective — แก้ปัญหาเฉพาะหน้า</span>
             </label>
             <label class="task-type-option ${(node.taskType || 'Repair') === 'Repair' ? 'selected' : ''}">
               <input type="radio" name="nf-tasktype" value="Repair" ${(node.taskType || 'Repair') === 'Repair' ? 'checked' : ''}>
-              <span class="task-type-icon" style="color: #dc2626;">🔧</span>
+              <span class="task-type-icon" style="color: #dc2626;">${icon('wrench', 16)}</span>
               <span class="task-type-label">Repair</span>
               <span class="task-type-desc">งานซ่อม Error Code</span>
             </label>
@@ -5997,16 +6230,16 @@ function stepRowHtml(step, i) {
           <img src="${escapeHtml(image)}" style="width: 100%; height: 100%; object-fit: contain;" onerror="this.style.display='none'">
         </div>
         <div style="flex: 1; font-size: 12px; color: var(--ink-soft);">
-          ${isDataUrl ? '🖼 รูปฝัง' : '🔗 รูปจาก URL'}
+          ${isDataUrl ? icon('image', 13) + ' รูปฝัง' : icon('link', 13) + ' รูปจาก URL'}
         </div>
-        <button class="btn btn-sm" type="button" data-action="upload-image" onclick="document.getElementById('stepImg-${i}').click()" style="font-size: 11px; padding: 4px 8px;" title="เปลี่ยนรูป">🔄</button>
-        <button class="btn btn-sm btn-danger" type="button" data-action="remove-image" onclick="removeStepImage(${i})" style="font-size: 11px; padding: 4px 8px;" title="ลบรูป">🗑</button>
+        <button class="btn btn-sm" type="button" data-action="upload-image" onclick="document.getElementById('stepImg-${i}').click()" style="font-size: 11px; padding: 4px 8px;" title="เปลี่ยนรูป">${icon('refresh-cw', 14)}</button>
+        <button class="btn btn-sm btn-danger" type="button" data-action="remove-image" onclick="removeStepImage(${i})" style="font-size: 11px; padding: 4px 8px;" title="ลบรูป">${icon('trash', 14)}</button>
       ` : `
         <div style="flex: 1; text-align: center; font-size: 12px; color: var(--ink-muted); display: flex; align-items: center; justify-content: center; gap: 8px;">
-          <span>📷 ไม่มีรูป (เลือกหรือไม่ก็ได้)</span>
+          <span>${icon('camera', 14)} ไม่มีรูป (เลือกหรือไม่ก็ได้)</span>
         </div>
-        <button class="btn btn-sm" type="button" data-action="upload-image" onclick="document.getElementById('stepImg-${i}').click()" style="font-size: 12px;">📤 อัพโหลด</button>
-        <button class="btn btn-sm" type="button" data-action="toggle-url" onclick="toggleStepImageUrl(${i})" style="font-size: 12px;">🔗 URL</button>
+        <button class="btn btn-sm" type="button" data-action="upload-image" onclick="document.getElementById('stepImg-${i}').click()" style="font-size: 12px;">${icon('upload', 14)} อัพโหลด</button>
+        <button class="btn btn-sm" type="button" data-action="toggle-url" onclick="toggleStepImageUrl(${i})" style="font-size: 12px;">${icon('link', 14)} URL</button>
       `}
       <input type="file" id="stepImg-${i}" accept="image/*" style="display: none;" onchange="handleStepUpload(${i}, event)">
     </div>
@@ -6291,7 +6524,7 @@ function handleStepUpload(i, event) {
       if (!editFormState.steps[i]) editFormState.steps[i] = { text: '', image: '' };
       editFormState.steps[i].image = dataUrl;
       refreshStepRow(i);
-      toast('โหลดรูปแล้ว ✓');
+      toast('โหลดรูปแล้ว', 'check-circle');
     };
     tempImg.onerror = () => toast('ไม่สามารถโหลดรูปได้');
     tempImg.src = e.target.result;
@@ -6328,7 +6561,7 @@ function renderAdminJSON() {
     <!-- 🌟 PUBLISH SECTION (สำคัญที่สุด) -->
     <div class="publish-section ${hasUnpublished ? 'has-changes' : ''}">
       <div class="publish-header">
-        <div class="publish-icon">📦</div>
+        <div class="publish-icon">${icon('package', 28)}</div>
         <div class="publish-title-block">
           <h3>เผยแพร่เว็บใหม่ — ให้ทีมเห็นการอัพเดต</h3>
           <p>กดปุ่มเดียวเพื่อสร้างไฟล์ <code>index.html</code> ที่พร้อม upload GitHub</p>
@@ -6362,17 +6595,17 @@ function renderAdminJSON() {
 
       <div class="publish-actions">
         <button class="btn btn-publish" onclick="publishWebsite()">
-          📦 Publish — ดาวน์โหลด index.html
+          ${icon('package', 16)} Publish — ดาวน์โหลด index.html
         </button>
         <button class="btn" onclick="showPublishGuide()">
-          📖 วิธีอัพเดต GitHub
+          ${icon('book-open', 16)} วิธีอัพเดต GitHub
         </button>
       </div>
     </div>
 
     <!-- Backup section (advanced) -->
     <div style="margin-top: 24px; padding-top: 20px; border-top: 2px dashed var(--line);">
-      <h4 style="margin-bottom: 8px; color: var(--ink-soft);">💾 Backup / Restore (สำหรับการสำรอง)</h4>
+      <h4 style="margin-bottom: 8px; color: var(--ink-soft);">${icon('save', 15)} Backup / Restore (สำหรับการสำรอง)</h4>
       <p style="font-size: 13px; color: var(--ink-muted); margin-bottom: 12px;">ดาวน์โหลด/อัพโหลดไฟล์ JSON สำรอง — ไม่ใช่ปุ่มหลักสำหรับเผยแพร่</p>
 
       <div class="form-group">
@@ -6380,8 +6613,8 @@ function renderAdminJSON() {
         <textarea id="jsonData" class="code" style="height: 150px; font-size: 11px;">${escapeHtml(JSON.stringify(appData, null, 2))}</textarea>
       </div>
       <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-        <button class="btn" onclick="importJSON()">⬇ Import JSON (Restore)</button>
-        <button class="btn" onclick="exportJSON()">⬆ Export JSON (Backup)</button>
+        <button class="btn" onclick="importJSON()">${icon('download', 15)} Import JSON (Restore)</button>
+        <button class="btn" onclick="exportJSON()">${icon('upload', 15)} Export JSON (Backup)</button>
         <button class="btn" onclick="copyJSON()">⧉ Copy JSON</button>
       </div>
     </div>
@@ -6440,7 +6673,7 @@ async function publishWebsite() {
 
   } catch (e) {
     console.error('Publish error:', e);
-    toast('❌ ไม่สามารถสร้างไฟล์ได้: ' + e.message);
+    toast('ไม่สามารถสร้างไฟล์ได้: ' + e.message);
   }
 }
 
@@ -6458,7 +6691,7 @@ function bumpVersion(v) {
 
 function showPublishSuccess(version) {
   showModal({
-    title: '✅ สร้างไฟล์สำเร็จ!',
+    title: 'สร้างไฟล์สำเร็จ!', titleIcon: 'check-circle',
     body: `
       <div style="text-align: center; padding: 12px 0 20px;">
         <div style="width: 80px; height: 80px; margin: 0 auto 16px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-success) 0%, #4caf50 100%); display: grid; place-items: center; font-size: 40px; box-shadow: 0 8px 24px rgba(45, 134, 89, 0.3);">
@@ -6486,14 +6719,14 @@ function showPublishSuccess(version) {
         💡 <strong>เทคนิค:</strong> บอกทีมให้กด <kbd style="background: white; padding: 2px 6px; border-radius: 3px; border: 1px solid var(--line); font-family: 'JetBrains Mono', monospace; font-size: 11px;">Ctrl + Shift + R</kbd> (Windows) หรือ <kbd style="background: white; padding: 2px 6px; border-radius: 3px; border: 1px solid var(--line); font-family: 'JetBrains Mono', monospace; font-size: 11px;">Cmd + Shift + R</kbd> (Mac) เพื่อ refresh แบบไม่ใช้ cache
       </div>
     `,
-    saveLabel: 'เข้าใจแล้ว ✓',
+    saveLabel: 'เข้าใจแล้ว',
     onSave: () => true
   });
 }
 
 function showPublishGuide() {
   showModal({
-    title: '📖 วิธีอัพเดตเว็บผ่าน GitHub',
+    title: 'วิธีอัพเดตเว็บผ่าน GitHub', titleIcon: 'book-open',
     body: `
       <div style="line-height: 1.7;">
         <p style="background: var(--brand-disraptor-pale); padding: 12px; border-radius: var(--radius); margin-bottom: 16px;">
@@ -6593,12 +6826,12 @@ function renderAdminReset() {
   return `
     <div style="display: grid; gap: 16px;">
       <div style="background: var(--bg); padding: 16px; border-radius: var(--radius); border: 1px solid var(--line);">
-        <h4 style="font-size: 15px; font-weight: 600; margin-bottom: 8px;">📊 สถานะปัจจุบัน</h4>
+        <h4 style="font-size: 15px; font-weight: 600; margin-bottom: 8px;">${icon('gauge', 15)} สถานะปัจจุบัน</h4>
         <p style="font-size: 13px; color: var(--ink-soft); margin-bottom: 4px;">ข้อมูลในเครื่อง: <strong style="color: var(--ink);">${currentCount}</strong> รายการ · <strong style="color: var(--ink);">${currentDiagrams}</strong> ไดอะแกรม</p>
         <p style="font-size: 13px; color: var(--ink-soft);">ข้อมูลตัวอย่าง: <strong style="color: var(--ink);">${defaultCount}</strong> รายการ · <strong style="color: var(--ink);">${defaultDiagrams}</strong> ไดอะแกรม</p>
       </div>
       <div style="background: var(--bg-card); padding: 16px; border-radius: var(--radius); border: 1px solid var(--line);">
-        <h4 style="font-size: 15px; font-weight: 600; margin-bottom: 8px;">🔄 โหลดข้อมูลตัวอย่างใหม่ทับ</h4>
+        <h4 style="font-size: 15px; font-weight: 600; margin-bottom: 8px;">${icon('refresh-cw', 15)} โหลดข้อมูลตัวอย่างใหม่ทับ</h4>
         <p style="font-size: 13px; color: var(--ink-soft); margin-bottom: 12px;">แทนที่ข้อมูลทั้งหมดด้วยตัวอย่างเริ่มต้นที่ฝังในเว็บ</p>
         <button class="btn btn-primary" onclick="resetData()">โหลดข้อมูลตัวอย่างใหม่ทับ</button>
       </div>
@@ -6618,17 +6851,18 @@ function resetData() {
 
 /* ============== MODAL ============== */
 let modalSaveCallback = null;
-function showModal({ title, body, onSave, wide, saveLabel }) {
+function showModal({ title, body, onSave, wide, saveLabel, titleIcon }) {
   modalSaveCallback = onSave;
   // Lock body scroll while modal is open
   document.body.classList.add('modal-open');
 
+  const titleIc = titleIcon && ICONS[titleIcon] ? `<span class="modal-title-icon">${icon(titleIcon, 18)}</span>` : '';
   document.getElementById('modalRoot').innerHTML = `
     <div class="modal-overlay" onclick="if(event.target === this) closeModal()">
       <div class="modal ${wide ? 'modal-wide' : ''}">
         <div class="modal-header">
-          <h3>${escapeHtml(title)}</h3>
-          <button type="button" class="btn btn-icon" onclick="closeModal()" aria-label="ปิด">×</button>
+          <h3>${titleIc}<span>${escapeHtml(title)}</span></h3>
+          <button type="button" class="btn btn-icon" onclick="closeModal()" aria-label="ปิด">${icon('x', 18)}</button>
         </div>
         <div class="modal-body">${body}</div>
         <div class="modal-footer">
@@ -6669,6 +6903,33 @@ function applyBranding() {
   }
 }
 applyBranding();
+
+/* ============== THEME (light / dark) ============== */
+const THEME_KEY = 'repairManualTheme';
+function getTheme() {
+  return document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+}
+function applyTheme(t) {
+  t = t === 'dark' ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-theme', t);
+  try { localStorage.setItem(THEME_KEY, t); } catch (e) {}
+  const tb = document.getElementById('themeToggle');
+  if (tb) tb.title = tb.setAttribute('aria-label', t === 'dark' ? 'สลับเป็นโหมดสว่าง' : 'สลับเป็นโหมดมืด');
+}
+function toggleTheme() {
+  applyTheme(getTheme() === 'dark' ? 'light' : 'dark');
+}
+
+/* ============== ICON HYDRATION ============== */
+/* Fill every [data-icon] placeholder in static markup with its SVG */
+function hydrateIcons(root) {
+  (root || document).querySelectorAll('[data-icon]').forEach(el => {
+    if (el.dataset.iconDone) return;
+    const name = el.getAttribute('data-icon');
+    const sz = parseInt(el.getAttribute('data-icon-size'), 10) || 18;
+    if (name && ICONS[name]) { el.innerHTML = icon(name, sz); el.dataset.iconDone = '1'; }
+  });
+}
 
 /* ============== KEYBOARD SHORTCUTS ============== */
 document.addEventListener('keydown', (e) => {
@@ -6715,8 +6976,10 @@ document.addEventListener('keydown', (e) => {
 });
 
 applySkillLevel();
+hydrateIcons();
+applyTheme(getTheme());
 // Show a loading hint while fetching data.json
-document.getElementById('mainView').innerHTML = '<div style="padding: 80px 20px; text-align: center; color: var(--ink-muted);">⏳ กำลังโหลดข้อมูล...</div>';
+document.getElementById('mainView').innerHTML = '<div style="padding: 80px 20px; text-align: center; color: var(--ink-muted);"><span class="spin" style="display:inline-block;">' + icon('refresh-cw', 22) + '</span><div style="margin-top:10px;">กำลังโหลดข้อมูล...</div></div>';
 initData().then(() => {
   updatePublishButton();
   render();
