@@ -2943,6 +2943,161 @@
                     "taskType": "CM"
                   },
                   "taskType": "Repair"
+                },
+                {
+                  "id": "wag-err-340",
+                  "title": "340 - ลิมิตบนแปรงบนผิดปกติ (Top Brush Upper Limit Abnormal)",
+                  "description": "Top brush moved upward for 10s without detecting upper limit.",
+                  "solution": {
+                    "difficulty": "ปานกลาง",
+                    "estimatedTime": "45 นาที",
+                    "warning": "หากรีเซ็ตไม่ได้ หรือเกิดซ้ำ 3 ครั้งติดกัน ให้แจ้งฝ่ายซ่อมบำรุง",
+                    "symptoms": [
+                      "แปรงบนเคลื่อนขึ้นนาน 10 วินาที โดยไม่พบสัญญาณลิมิตบน",
+                      "อาการ: อุปกรณ์หยุดทำงาน (Equipment Halted)",
+                      "ระดับความรุนแรง: สูง"
+                    ],
+                    "tools": [
+                      "มัลติมิเตอร์",
+                      "เซ็นเซอร์ลิมิตสำรอง",
+                      "เครื่องมือช่าง"
+                    ],
+                    "steps": [
+                      {
+                        "text": "วิเคราะห์สาเหตุ: มอเตอร์/การเคลื่อนที่ขัดข้อง",
+                        "image": ""
+                      },
+                      {
+                        "text": "วิเคราะห์สาเหตุ: เซ็นเซอร์ลิมิตบนเสียหาย",
+                        "image": ""
+                      },
+                      {
+                        "text": "ซ่อมมอเตอร์หรือวงจร",
+                        "image": ""
+                      },
+                      {
+                        "text": "เปลี่ยนเซ็นเซอร์",
+                        "image": ""
+                      }
+                    ],
+                    "taskType": "CM"
+                  },
+                  "taskType": "Repair"
+                },
+                {
+                  "id": "wag-err-345",
+                  "title": "345 - สายสลิงแปรงบนด้านซ้ายหย่อน (Left Side Top Brush Sling Loose)",
+                  "description": "Action (suspension strap loose triggered, stop gantry, top brush ascends for 1S) persists for 2S, triggering alarm.",
+                  "solution": {
+                    "difficulty": "ปานกลาง",
+                    "estimatedTime": "40 นาที",
+                    "warning": "หากรีเซ็ตไม่ได้ หรือเกิดซ้ำ 3 ครั้งติดกัน ให้แจ้งฝ่ายซ่อมบำรุง",
+                    "symptoms": [
+                      "การทำงาน (ตรวจพบสายสลิงหย่อน หยุดโครง แปรงบนยกขึ้น 1 วินาที) ค้างนาน 2 วินาที จึงแจ้งเตือน",
+                      "อาการ: อุปกรณ์หยุดทำงาน (Equipment Halted)",
+                      "ระดับความรุนแรง: สูง"
+                    ],
+                    "tools": [
+                      "เซ็นเซอร์สำรอง",
+                      "เครื่องมือช่าง"
+                    ],
+                    "steps": [
+                      {
+                        "text": "วิเคราะห์สาเหตุ: เซ็นเซอร์ตรวจจับสายสลิงหย่อนด้านซ้ายเสียหาย",
+                        "image": ""
+                      },
+                      {
+                        "text": "วิเคราะห์สาเหตุ: โครงสร้างตรวจจับชำรุด",
+                        "image": ""
+                      },
+                      {
+                        "text": "เปลี่ยนเซ็นเซอร์ที่เสียหาย",
+                        "image": ""
+                      }
+                    ],
+                    "taskType": "CM"
+                  },
+                  "taskType": "Repair"
+                },
+                {
+                  "id": "wag-err-346",
+                  "title": "346 - สายสลิงแปรงบนด้านขวาหย่อน (Right Side Top Brush Sling Loose)",
+                  "description": "Action (suspension strap loose triggered, stop gantry, top brush ascends for 1S) persists for 2S, triggering alarm.",
+                  "solution": {
+                    "difficulty": "ปานกลาง",
+                    "estimatedTime": "40 นาที",
+                    "warning": "หากรีเซ็ตไม่ได้ หรือเกิดซ้ำ 3 ครั้งติดกัน ให้แจ้งฝ่ายซ่อมบำรุง",
+                    "symptoms": [
+                      "การทำงาน (ตรวจพบสายสลิงหย่อน หยุดโครง แปรงบนยกขึ้น 1 วินาที) ค้างนาน 2 วินาที จึงแจ้งเตือน",
+                      "อาการ: อุปกรณ์หยุดทำงาน (Equipment Halted)",
+                      "ระดับความรุนแรง: สูง"
+                    ],
+                    "tools": [
+                      "เซ็นเซอร์สำรอง",
+                      "เครื่องมือช่าง"
+                    ],
+                    "steps": [
+                      {
+                        "text": "วิเคราะห์สาเหตุ: เซ็นเซอร์ตรวจจับสายสลิงหย่อนด้านขวาเสียหาย",
+                        "image": ""
+                      },
+                      {
+                        "text": "วิเคราะห์สาเหตุ: โครงสร้างตรวจจับชำรุด",
+                        "image": ""
+                      },
+                      {
+                        "text": "เปลี่ยนเซ็นเซอร์ที่เสียหาย",
+                        "image": ""
+                      },
+                      {
+                        "text": "ซ่อมโครงสร้างที่ชำรุด",
+                        "image": ""
+                      }
+                    ],
+                    "taskType": "CM"
+                  },
+                  "taskType": "Repair"
+                },
+                {
+                  "id": "wag-err-350",
+                  "title": "350 - แรงกดสัมผัสแปรงบนผิดปกติ (Top Brush Contact Pressure Abnormal)",
+                  "description": "Top brush current detected as 0 three times consecutively.",
+                  "solution": {
+                    "difficulty": "ยาก",
+                    "estimatedTime": "60 นาที",
+                    "warning": "หากรีเซ็ตไม่ได้ หรือเกิดซ้ำ 3 ครั้งติดกัน ให้แจ้งฝ่ายซ่อมบำรุง",
+                    "symptoms": [
+                      "ตรวจพบกระแสแปรงบนเป็น 0 ติดต่อกัน 3 ครั้ง",
+                      "อาการ: อุปกรณ์หยุดทำงาน (Equipment Halted)",
+                      "ระดับความรุนแรง: สูง"
+                    ],
+                    "tools": [
+                      "มัลติมิเตอร์",
+                      "แคลมป์มิเตอร์",
+                      "ชุดควบคุมสำรอง",
+                      "เครื่องมือช่างไฟฟ้า"
+                    ],
+                    "steps": [
+                      {
+                        "text": "วิเคราะห์สาเหตุ: อุปกรณ์ไฟฟ้าที่เกี่ยวข้องชำรุด",
+                        "image": ""
+                      },
+                      {
+                        "text": "วิเคราะห์สาเหตุ: I/O ควบคุมที่เกี่ยวข้องชำรุดหรือสายไฟผิดปกติ",
+                        "image": ""
+                      },
+                      {
+                        "text": "ซ่อมหรือเปลี่ยนอุปกรณ์ไฟฟ้าที่เกี่ยวข้อง",
+                        "image": ""
+                      },
+                      {
+                        "text": "เปลี่ยนชุดควบคุม (คอนโทรลเลอร์)",
+                        "image": ""
+                      }
+                    ],
+                    "taskType": "CM"
+                  },
+                  "taskType": "Repair"
                 }
               ]
             },
@@ -3316,6 +3471,68 @@
                     "taskType": "CM"
                   },
                   "taskType": "Repair"
+                },
+                {
+                  "id": "wag-err-342",
+                  "title": "342 - ตำแหน่งเปิดแปรงซ้ายผิดปกติ (Left Brush Open Position Abnormal)",
+                  "description": "Left brush moved towards open position for 10s without detecting left brush open position.",
+                  "solution": {
+                    "difficulty": "ปานกลาง",
+                    "estimatedTime": "30 นาที",
+                    "warning": "หากรีเซ็ตไม่ได้ หรือเกิดซ้ำ 3 ครั้งติดกัน ให้แจ้งฝ่ายซ่อมบำรุง",
+                    "symptoms": [
+                      "แปรงซ้ายเคลื่อนไปทางตำแหน่งเปิดนาน 10 วินาที โดยไม่พบสัญญาณตำแหน่งเปิดของแปรงซ้าย",
+                      "อาการ: อุปกรณ์หยุดทำงาน (Equipment Halted)",
+                      "ระดับความรุนแรง: สูง"
+                    ],
+                    "tools": [
+                      "เซ็นเซอร์สำรอง",
+                      "ไขควง"
+                    ],
+                    "steps": [
+                      {
+                        "text": "วิเคราะห์สาเหตุ: เซ็นเซอร์ตำแหน่งเปิดเสียหาย",
+                        "image": ""
+                      },
+                      {
+                        "text": "เปลี่ยนเซ็นเซอร์ที่เสียหาย",
+                        "image": ""
+                      }
+                    ],
+                    "taskType": "CM"
+                  },
+                  "taskType": "Repair"
+                },
+                {
+                  "id": "wag-err-343",
+                  "title": "343 - ตำแหน่งเปิดแปรงขวาผิดปกติ (Right Brush Open Position Abnormal)",
+                  "description": "Right brush moved towards open position for 10s without detecting right brush open position.",
+                  "solution": {
+                    "difficulty": "ปานกลาง",
+                    "estimatedTime": "30 นาที",
+                    "warning": "หากรีเซ็ตไม่ได้ หรือเกิดซ้ำ 3 ครั้งติดกัน ให้แจ้งฝ่ายซ่อมบำรุง",
+                    "symptoms": [
+                      "แปรงขวาเคลื่อนไปทางตำแหน่งเปิดนาน 10 วินาที โดยไม่พบสัญญาณตำแหน่งเปิดของแปรงขวา",
+                      "อาการ: อุปกรณ์หยุดทำงาน (Equipment Halted)",
+                      "ระดับความรุนแรง: สูง"
+                    ],
+                    "tools": [
+                      "เซ็นเซอร์สำรอง",
+                      "ไขควง"
+                    ],
+                    "steps": [
+                      {
+                        "text": "วิเคราะห์สาเหตุ: เซ็นเซอร์ตำแหน่งเปิดเสียหาย",
+                        "image": ""
+                      },
+                      {
+                        "text": "เปลี่ยนเซ็นเซอร์ที่เสียหาย",
+                        "image": ""
+                      }
+                    ],
+                    "taskType": "CM"
+                  },
+                  "taskType": "Repair"
                 }
               ]
             },
@@ -3457,6 +3674,45 @@
                       },
                       {
                         "text": "ตรวจสอบหาสาเหตุของการติดขัด",
+                        "image": ""
+                      }
+                    ],
+                    "taskType": "CM"
+                  },
+                  "taskType": "Repair"
+                },
+                {
+                  "id": "wag-err-286",
+                  "title": "286 - แปรงล้อไม่ยืดออก (Wheel Brush Not Extended)",
+                  "description": "During wheel cleaning, wheel brush open position status did not change on both sides within 5 seconds.",
+                  "solution": {
+                    "difficulty": "ปานกลาง",
+                    "estimatedTime": "30 นาที",
+                    "warning": "หากรีเซ็ตไม่ได้ หรือเกิดซ้ำ 3 ครั้งติดกัน ให้แจ้งฝ่ายซ่อมบำรุง",
+                    "symptoms": [
+                      "ระหว่างการล้างล้อ สถานะตำแหน่งเปิดของแปรงล้อไม่เปลี่ยนทั้งสองด้านภายใน 5 วินาที",
+                      "อาการ: อุปกรณ์หยุดทำงาน (Equipment Halted)",
+                      "ระดับความรุนแรง: กลาง"
+                    ],
+                    "tools": [
+                      "เกจวัดแรงดันลม",
+                      "จาระบี"
+                    ],
+                    "steps": [
+                      {
+                        "text": "วิเคราะห์สาเหตุ: แรงดันลมต่ำเกินไป",
+                        "image": ""
+                      },
+                      {
+                        "text": "วิเคราะห์สาเหตุ: มีสิ่งกีดขวางทางกล",
+                        "image": ""
+                      },
+                      {
+                        "text": "ตรวจสอบเครื่องอัดอากาศ วาล์ว และท่อลม",
+                        "image": ""
+                      },
+                      {
+                        "text": "ทาจาระบี",
                         "image": ""
                       }
                     ],
@@ -3805,6 +4061,76 @@
                     "tools": [],
                     "steps": []
                   }
+                },
+                {
+                  "id": "wag-err-252",
+                  "title": "252 - ลิมิตหน้าผิดปกติ (Front Limit Abnormal)",
+                  "description": "Front limit signal triggered and held for 20ms when traverse pulse count < 650.",
+                  "solution": {
+                    "difficulty": "ปานกลาง",
+                    "estimatedTime": "30 นาที",
+                    "warning": "หากรีเซ็ตไม่ได้ หรือเกิดซ้ำ 3 ครั้งติดกัน ให้แจ้งฝ่ายซ่อมบำรุง",
+                    "symptoms": [
+                      "สัญญาณลิมิตหน้าถูกกระตุ้นและค้างนาน 20ms ขณะที่ค่า pulse การวิ่ง (traverse) < 650",
+                      "อาการ: อุปกรณ์หยุดทำงาน (Equipment Halted)",
+                      "ระดับความรุนแรง: สูง"
+                    ],
+                    "tools": [
+                      "เซ็นเซอร์ลิมิตสำรอง",
+                      "ไขควง"
+                    ],
+                    "steps": [
+                      {
+                        "text": "วิเคราะห์สาเหตุ: เซ็นเซอร์ลิมิตหน้าเสียหาย",
+                        "image": ""
+                      },
+                      {
+                        "text": "เปลี่ยนเซ็นเซอร์ลิมิตหน้า",
+                        "image": ""
+                      }
+                    ],
+                    "taskType": "CM"
+                  },
+                  "taskType": "Repair"
+                },
+                {
+                  "id": "wag-err-344",
+                  "title": "344 - ลิมิตหลังผิดปกติ (Rear Limit Abnormal)",
+                  "description": "When traverse pulse < 30, gantry moved backward for 10s without detecting rear limit.",
+                  "solution": {
+                    "difficulty": "ปานกลาง",
+                    "estimatedTime": "30 นาที",
+                    "warning": "หากรีเซ็ตไม่ได้ หรือเกิดซ้ำ 3 ครั้งติดกัน ให้แจ้งฝ่ายซ่อมบำรุง",
+                    "symptoms": [
+                      "เมื่อค่า pulse การวิ่ง < 30 โครง (gantry) เคลื่อนถอยหลังนาน 10 วินาที โดยไม่พบสัญญาณลิมิตหลัง",
+                      "อาการ: อุปกรณ์หยุดทำงาน (Equipment Halted)",
+                      "ระดับความรุนแรง: สูง"
+                    ],
+                    "tools": [
+                      "เซ็นเซอร์ลิมิตสำรอง",
+                      "ไขควง"
+                    ],
+                    "steps": [
+                      {
+                        "text": "วิเคราะห์สาเหตุ: เซ็นเซอร์ลิมิตหลังเสียหาย",
+                        "image": ""
+                      },
+                      {
+                        "text": "วิเคราะห์สาเหตุ: มีสิ่งแปลกปลอมบนราง",
+                        "image": ""
+                      },
+                      {
+                        "text": "เปลี่ยนเซ็นเซอร์ที่เสียหาย",
+                        "image": ""
+                      },
+                      {
+                        "text": "นำสิ่งแปลกปลอมออกจากราง",
+                        "image": ""
+                      }
+                    ],
+                    "taskType": "CM"
+                  },
+                  "taskType": "Repair"
                 }
               ]
             },
@@ -4410,6 +4736,134 @@
               "title": "น้ำยาไม่ออกหรือน้ำสะอาดไม่ออก",
               "description": "น้ำยาหรือน้ำสะอาดไหลไม่สม่ำเสมอ",
               "children": []
+            }
+          ],
+          "maintenanceType": "CM",
+          "category": "cm",
+          "categoryType": "cm"
+        },
+        {
+          "id": "wag-cat-photo",
+          "title": "เซ็นเซอร์ Photoelectric (Through-beam)",
+          "description": "ปัญหาเซ็นเซอร์โฟโตอิเล็กทริก (Through-beam) ตรวจจับตำแหน่งรถ/ล้อ สกปรกหรือเสียหาย",
+          "children": [
+            {
+              "id": "wag-err-293",
+              "title": "293 - เซ็นเซอร์ Photoelectric จอดรถ (A) (Parking Photoelectric Sensor)",
+              "description": "During the first front-to-back pass, photoelectric sensor status did not change for 40 seconds.",
+              "solution": {
+                "difficulty": "ปานกลาง",
+                "estimatedTime": "30 นาที",
+                "warning": "หากรีเซ็ตไม่ได้ หรือเกิดซ้ำ 3 ครั้งติดกัน ให้แจ้งฝ่ายซ่อมบำรุง",
+                "symptoms": [
+                  "ระหว่างการวิ่งจากหน้าไปหลังรอบแรก สถานะเซ็นเซอร์ Photoelectric ไม่เปลี่ยนนาน 40 วินาที",
+                  "อาการ: อุปกรณ์หยุดทำงาน (Equipment Halted)",
+                  "ระดับความรุนแรง: สูง"
+                ],
+                "tools": [
+                  "ผ้าชุบน้ำหมาดๆ",
+                  "เซ็นเซอร์ Photoelectric สำรอง",
+                  "ไขควง"
+                ],
+                "steps": [
+                  {
+                    "text": "วิเคราะห์สาเหตุ: หน้าเซ็นเซอร์ Photoelectric สกปรก",
+                    "image": ""
+                  },
+                  {
+                    "text": "วิเคราะห์สาเหตุ: เซ็นเซอร์ Photoelectric เสียหาย",
+                    "image": ""
+                  },
+                  {
+                    "text": "เช็ดทำความสะอาดเซ็นเซอร์ Photoelectric เป็นประจำ",
+                    "image": ""
+                  },
+                  {
+                    "text": "เปลี่ยนเซ็นเซอร์ Photoelectric ที่เสียหาย",
+                    "image": ""
+                  }
+                ],
+                "taskType": "CM"
+              },
+              "taskType": "Repair"
+            },
+            {
+              "id": "wag-err-294",
+              "title": "294 - เซ็นเซอร์ Photoelectric จอดรถ (B) (Parking Photoelectric Sensor)",
+              "description": "During the first front-to-back pass, photoelectric sensor status did not change for 40 seconds.",
+              "solution": {
+                "difficulty": "ปานกลาง",
+                "estimatedTime": "30 นาที",
+                "warning": "หากรีเซ็ตไม่ได้ หรือเกิดซ้ำ 3 ครั้งติดกัน ให้แจ้งฝ่ายซ่อมบำรุง",
+                "symptoms": [
+                  "ระหว่างการวิ่งจากหน้าไปหลังรอบแรก สถานะเซ็นเซอร์ Photoelectric ไม่เปลี่ยนนาน 40 วินาที",
+                  "อาการ: อุปกรณ์หยุดทำงาน (Equipment Halted)",
+                  "ระดับความรุนแรง: สูง"
+                ],
+                "tools": [
+                  "ผ้าชุบน้ำหมาดๆ",
+                  "เซ็นเซอร์ Photoelectric สำรอง",
+                  "ไขควง"
+                ],
+                "steps": [
+                  {
+                    "text": "วิเคราะห์สาเหตุ: หน้าเซ็นเซอร์ Photoelectric B สกปรก",
+                    "image": ""
+                  },
+                  {
+                    "text": "วิเคราะห์สาเหตุ: เซ็นเซอร์ Photoelectric B เสียหาย",
+                    "image": ""
+                  },
+                  {
+                    "text": "เช็ดทำความสะอาดเซ็นเซอร์ Photoelectric เป็นประจำ",
+                    "image": ""
+                  },
+                  {
+                    "text": "เปลี่ยนเซ็นเซอร์ Photoelectric ที่เสียหาย",
+                    "image": ""
+                  }
+                ],
+                "taskType": "CM"
+              },
+              "taskType": "Repair"
+            },
+            {
+              "id": "wag-err-295",
+              "title": "295 - เซ็นเซอร์ Photoelectric ดุมล้อ (Wheel Hub Photoelectric Sensor)",
+              "description": "Wheel photoelectric sensor D status did not change during car wash process, prompting alarm.",
+              "solution": {
+                "difficulty": "ง่าย",
+                "estimatedTime": "20 นาที",
+                "symptoms": [
+                  "สถานะเซ็นเซอร์ Photoelectric ล้อ (D) ไม่เปลี่ยนระหว่างกระบวนการล้างรถ จึงแจ้งเตือน",
+                  "อาการ: ดุมล้อไม่ถูกล้าง (Wheel Hub Not Washed)",
+                  "ระดับความรุนแรง: ต่ำ"
+                ],
+                "tools": [
+                  "ผ้าชุบน้ำหมาดๆ",
+                  "เซ็นเซอร์ Photoelectric สำรอง"
+                ],
+                "steps": [
+                  {
+                    "text": "วิเคราะห์สาเหตุ: หน้าเซ็นเซอร์ Photoelectric สกปรก",
+                    "image": ""
+                  },
+                  {
+                    "text": "วิเคราะห์สาเหตุ: เซ็นเซอร์ Photoelectric เสียหาย",
+                    "image": ""
+                  },
+                  {
+                    "text": "เช็ดทำความสะอาดเซ็นเซอร์ Photoelectric เป็นประจำ",
+                    "image": ""
+                  },
+                  {
+                    "text": "เปลี่ยนเซ็นเซอร์ Photoelectric ที่เสียหาย",
+                    "image": ""
+                  }
+                ],
+                "taskType": "CM"
+              },
+              "taskType": "Repair"
             }
           ],
           "maintenanceType": "CM",
