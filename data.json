@@ -2273,6 +2273,18 @@
           "maintenanceType": "CM",
           "category": "cm",
           "categoryType": "cm"
+        },
+        {
+          "id": "node-0wfevc",
+          "title": "ปั๊มน้ำ",
+          "description": "ปัญหาที่เกี่ยวกับปั๊มน้ำ",
+          "children": []
+        },
+        {
+          "id": "node-z0gblp",
+          "title": "ปั๊มลมมีปัญหา",
+          "description": "ปัญหาที่เกี่ยวกับปั๊มลม",
+          "children": []
         }
       ],
       "diagrams": [
