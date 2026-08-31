@@ -1867,37 +1867,79 @@
           "id": "node-0wfevc",
           "title": "ปั๊มน้ำ",
           "description": "ปัญหาที่เกี่ยวกับปั๊มน้ำ",
-          "children": []
+          "children": [
+            {
+              "id": "node-xyo7e3",
+              "title": "ปั๊มน้ำมีปัญหา",
+              "description": "ทุกอย่างที่เกี่ยวข้อง",
+              "children": []
+            }
+          ]
         },
         {
           "id": "node-z0gblp",
           "title": "ปั๊มลมมีปัญหา",
           "description": "ปัญหาที่เกี่ยวกับปั๊มลม",
-          "children": []
+          "children": [
+            {
+              "id": "node-t0y92v",
+              "title": "ปั๊มลมมีปัญหา",
+              "description": "ทุกอย่างที่เกี่ยวข้อง",
+              "children": []
+            }
+          ]
         },
         {
           "id": "node-e4eiti",
           "title": "อื่นๆ",
           "description": "",
-          "children": []
+          "children": [
+            {
+              "id": "node-5dt3yz",
+              "title": "อื่นๆ",
+              "description": "อื่นๆที่ไม่มีในระบบ",
+              "children": []
+            }
+          ]
         },
         {
           "id": "node-9j5aqg",
           "title": "เครื่องดูดฝุ่น",
           "description": "",
-          "children": []
+          "children": [
+            {
+              "id": "node-2dur8g",
+              "title": "เครื่องดูดฝุ่นมีปัญหา",
+              "description": "ทุกอย่างที่เกี่ยวข้อง",
+              "children": []
+            }
+          ]
         },
         {
           "id": "node-iq0ldk",
           "title": "ปั๊มฉีดน้ำ",
           "description": "",
-          "children": []
+          "children": [
+            {
+              "id": "node-s7yedu",
+              "title": "ปั๊มฉีดน้ำมีปัญหา",
+              "description": "ทุกอย่างที่เกี่ยวข้อง",
+              "children": []
+            }
+          ]
         },
         {
           "id": "node-oaxxku",
           "title": "ปืนฉีดน้ำ",
           "description": "",
-          "children": []
+          "children": [
+            {
+              "id": "node-gbhu2e",
+              "title": "ปืนฉีดน้ำมีปัญหา",
+              "description": "ทุกอย่างที่เกี่ยวข้อง",
+              "children": []
+            }
+          ]
         }
       ],
       "diagrams": [
