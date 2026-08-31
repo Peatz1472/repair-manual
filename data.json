@@ -1880,6 +1880,24 @@
           "title": "อื่นๆ",
           "description": "",
           "children": []
+        },
+        {
+          "id": "node-9j5aqg",
+          "title": "เครื่องดูดฝุ่น",
+          "description": "",
+          "children": []
+        },
+        {
+          "id": "node-iq0ldk",
+          "title": "ปํีมฉีดน้ำ",
+          "description": "",
+          "children": []
+        },
+        {
+          "id": "node-oaxxku",
+          "title": "ปืนฉีดน้ำ",
+          "description": "",
+          "children": []
         }
       ],
       "diagrams": [
