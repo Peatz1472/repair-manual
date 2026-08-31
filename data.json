@@ -2285,6 +2285,12 @@
           "title": "ปั๊มลมมีปัญหา",
           "description": "ปัญหาที่เกี่ยวกับปั๊มลม",
           "children": []
+        },
+        {
+          "id": "node-e4eiti",
+          "title": "อื่นๆ",
+          "description": "",
+          "children": []
         }
       ],
       "diagrams": [
@@ -5399,7 +5405,7 @@
       "email": "noppharat@scggroup.com"
     },
     "version": "1.0",
-    "lastUpdated": "2026-08-13",
+    "lastUpdated": "2026-08-31",
     "supportTeam": [
       {
         "name": "ช่างบุญมี",
